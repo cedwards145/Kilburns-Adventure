@@ -129,7 +129,7 @@ public class Player extends MapObject{
 	}
 	
 	//Score-----------------------------------------------------------------------------------------------------
-	public addScore(int givenScore)
+	public void addScore(int givenScore)
 	{
 	  score += givenScore;
 	}//addScore
