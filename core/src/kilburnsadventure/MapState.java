@@ -71,11 +71,14 @@ public class MapState extends GameState
 	{
 		if (xPlayerPosX > 150)
 		{
+			// Intialise xoffset
 			int xOffset = 0;
 			// Iterate through the number of enemies
 			for(int i = 0; i < noOfEnemies; i++)
 			{
+				// Set xOffset
 				xOffset = MathUtils.random(600,1500);
+				// Create enemies
 				Enemy pilots = new Enemy(game, this, xOffset + xPlayerPosX, 
 						                     MathUtils.random(50,400));
 				addToObjectList(pilots);
@@ -87,37 +90,50 @@ public class MapState extends GameState
 	public void update()
 	{
 		super.update();
+		// Increment frames
 		frames++;
+		// Get the players position.
 		xPlayerPosX = player.getPosition().x;
 		xPlayerPosY = player.getPosition().y;
 		
-		for(int object = 0; object < objects.size(); object++)
+		// Iterate through list and update.
+		for(int index = 0; index < objects.size(); index++)
 		{
-			objects.get(object).update();
+			objects.get(index).update();
 		}
+		// Set camera to follow player's position.
 		gameRef.cameraLookAt(player.getPosition());
+		
+		// Spawn enemies.
 		if(frames > noOfFramesBetween)
 		{
 			spawnEnemies(5);
 			frames = 0;
 		}
 		
-		for(int object = 0; object < toAdd.size(); object++)
+		// Iterate through the toAdd list.
+		for(int index = 0; index < toAdd.size(); index++)
 		{
-			objects.add(toAdd.get(object));
+			// Add the items from the toAdd list to the object
+			// list.
+			objects.add(toAdd.get(index));
 		}
 		
-		for(int i = 0; i < objects.size(); i++)
+		// Iterate trough the objects list to remove
+		// objects from Map after the player has passed
+		for(int index = 0; index < objects.size(); index++)
 		{
-			if(objects.get(i).getPosition().x < xPlayerPosX - 600)
-			removeFromObjectList(objects.get(i));
+			if(objects.get(index).getPosition().x < xPlayerPosX - 600)
+				removeFromObjectList(objects.get(index));
 		}
 		
-		for(int object = 0; object < toRemove.size(); object++)
+		// Iterate through the remove list and remove objects.
+		for(int index = 0; index < toRemove.size(); index++)
 		{
-			objects.remove(toRemove.get(object));
+			objects.remove(toRemove.get(index));
 		}
 		
+		// Clear lists
 		toAdd.clear();
 		toRemove.clear();
 		
@@ -127,7 +143,10 @@ public class MapState extends GameState
 	public void draw(SpriteBatch spriteBatch)
 	{
 		super.draw(spriteBatch);
+		// Draw map texture
 		spriteBatch.draw(initialiseMap, 0, 0);
+		// Iterate through the list of objects and
+		// draw them.
 		for(int object = 0; object < objects.size(); object++)
 		{
 			objects.get(object).draw(spriteBatch);
