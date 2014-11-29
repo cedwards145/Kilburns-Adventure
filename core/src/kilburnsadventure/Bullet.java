@@ -24,7 +24,6 @@ public class Bullet extends MapObject
 		graphic = new Texture("graphics/weapons/bullets/bullet.png");
 		firedByPlayer = playerBullet;
 		position = startPosition;
-		map = reqMap;
 		map.addToObjectList(this);
 	}
 	

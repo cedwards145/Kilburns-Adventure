@@ -10,6 +10,7 @@ public class MapObject extends GameObject
 	public MapObject(Game game, MapState containingMap)
 	{
 		super(game);
+		map = containingMap;
 	}
 	
 	public Vector2 getPosition()
