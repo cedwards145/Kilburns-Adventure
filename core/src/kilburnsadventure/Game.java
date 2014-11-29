@@ -77,6 +77,9 @@ public class Game extends ApplicationAdapter {
 	
 	public void cameraLookAt(Vector2 position)
 	{
+		position.x = (position.x > 0 ? position.x : 0);
+		position.y = (position.y > 0 ? position.y : 0);
+		
 		camera.position.set(position.x, position.y, 0);
 	}
 }
