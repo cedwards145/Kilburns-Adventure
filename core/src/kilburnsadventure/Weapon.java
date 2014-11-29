@@ -1,18 +1,28 @@
 package kilburnsadventure;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+
 public class Weapon 
 {
-	public static Weapon AK47 = new Weapon("Ak-47", 10, 20);
+	public static Weapon AK47 = new Weapon("Ak-47", 10, 20, "AK-47.wav");
 
 	
 	protected String name;
 	protected int damage, rateOfFire, framesSinceShot = 0;
+	protected Sound weaponSound;
 	
-	public Weapon(String reqName, int reqDamage, int reqRateOfFire)
+	public Weapon(String reqName, int reqDamage, int reqRateOfFire, String soundFileName)
 	{
 		name = reqName;
 		damage = reqDamage;
 		rateOfFire = reqRateOfFire;
+		weaponSound = Gdx.audio.newSound(Gdx.files.internal("audio/" + soundFileName));
+	}
+	
+	public Sound getWeaponSound()
+	{
+		return weaponSound;
 	}
 	
 	public boolean canFire()

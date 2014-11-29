@@ -129,6 +129,7 @@ public class Player extends MapObject{
 		if (weaponTouchIndex != -1 && Gdx.input.isTouched(weaponTouchIndex) && weapon.canFire())
 		{
 			Bullet bullet = new Bullet(gameRef, map, true, weapon.getDamage(), Bullet.RIGHT, position);
+			weapon.getWeaponSound().play();
 		}
 		
 	}
