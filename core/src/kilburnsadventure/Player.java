@@ -206,5 +206,10 @@ public class Player extends MapObject{
 		return score;
 	}//getScore
 	
+	public Weapon getWeapon()
+	{
+		return weapon;
+	}
+	
 	//Score-----------------------------------------------------------------------------------------------------
 }
