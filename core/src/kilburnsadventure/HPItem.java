@@ -18,6 +18,7 @@ public class HPItem extends ItemDrop{
 		position = new Vector2(xPosition, yPosition);
 		regSize = size;
 		graphic = new Texture("graphics/ballon.png");
+		
 	}
 	
 	@Override
@@ -27,15 +28,16 @@ public class HPItem extends ItemDrop{
 		
 		for (MapObject object : mapObjects)
 		{
-			if (object instanceof Player && !firedByPlayer)
+			if (object instanceof Player && object instanceof HPItem)
 			{
 				Player player = (Player)object;
-				if (player.collides(position))
+				if (player.getCollisionBox().contains(position))
 				{
-					player.takeDamage(damage);
+					player.addHP(regSize);
 					map.removeFromObjectList(this);
 				}
 			}
+		}
 	}
 	
 	@Override

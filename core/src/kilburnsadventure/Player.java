@@ -111,7 +111,7 @@ public class Player extends MapObject{
 		currentHP -= damage;
 	}
 	
-	public void regHP(int reqHP)
+	public void addHP(int reqHP)
 	{
 		currentHP += reqHP;
 	}
