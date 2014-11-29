@@ -11,53 +11,73 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class MapState extends GameState 
 {
-	private Texture initialiseMap;
-	private int mapID;
+	// Initialise instance variables
 	private List<MapObject> objects = new ArrayList<MapObject>();
 	private List<MapObject> toAdd = new ArrayList<MapObject>();
 	private List<MapObject> toRemove = new ArrayList<MapObject>();
 	private Player player;
-	float xPlayerPosX, xPlayerPosY;
+	private Texture initialiseMap;
+	private Map map;
 	private Game game;
+	private int mapLvl;
 	private int frames = 0, noOfFramesBetween = 0;
+	float xPlayerPosX, xPlayerPosY;
 	
-	public MapState(Game requiredGame, StateManager stateManager,int requiredMapID)
+	public MapState(Game requiredGame, StateManager reqStateManager,
+			            int requiredMapLvl)
 	{
-		super(requiredGame, stateManager);
-		// Store the given mapID.
-		mapID = requiredMapID;
+		super(requiredGame, reqStateManager);
+		// Get the values from constructor.
+		mapLvl = requiredMapLvl;
 		game = requiredGame;
-		Map map = new Map(game,mapID);
-		initialiseMap = new Texture("graphics/maps/" + map.getMap());
-		player = new Player(game,this, 0,0);
-		objects.add(player);
+		// Used in spawn method.
 		noOfFramesBetween = 300;
+		// Get the map with the chosen level from
+		// the user.
+		map = new Map(game,mapLvl);
+		// Get the map texture.
+		initialiseMap = map.getMap();
+		// Create the player.
+		player = new Player(game,this, 0,0);
+		// Add player to the list of objects.
+		objects.add(player);
 	}
 	
+	// Accessor Method.
 	public List<MapObject> getObjectList()
 	{
 		return objects;
 	}
 	
+	// Add object to toAdd list.
 	public boolean addToObjectList(MapObject object)
 	{
 		return toAdd.add(object);
 	}
 	
+	// Remove from toRemove list.
 	public boolean removeFromObjectList(MapObject object)
 	{
 		return toRemove.add(object);
 	}
 	
+	public Player getPlayer()
+	{
+		return player;
+	}
+	
+	// Spawn enemies on map
 	public void spawnEnemies(int noOfEnemies)
 	{
-		if (xPlayerPosX > 300)
+		if (xPlayerPosX > 150)
 		{
-			int different = 0;
+			int xOffset = 0;
+			// Iterate through the number of enemies
 			for(int i = 0; i < noOfEnemies; i++)
 			{
-				different += 600;
-				Enemy pilots = new Enemy(game, this, different + xPlayerPosX, MathUtils.random(50,400));
+				xOffset = MathUtils.random(600,1500);
+				Enemy pilots = new Enemy(game, this, xOffset + xPlayerPosX, 
+						                     MathUtils.random(50,400));
 				addToObjectList(pilots);
 			}
 		}
