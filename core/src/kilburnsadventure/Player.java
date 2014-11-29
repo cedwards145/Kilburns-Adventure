@@ -42,14 +42,18 @@ public class Player extends GameObject{
 	}
 	
 	
-	private void updateMotion(){
+	public void updateMotion(){
+		//Moving options
 		boolean leftMove, rightMove, upMove, downMove;
-		
 		//If key is pressed
-		leftMove = Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A);
-		rightMove = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D);
-		upMove = Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W);
-		downMove = Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S);
+		leftMove = Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)
+				||ControlPanel.leftIsTouched();
+		rightMove = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)
+				||ControlPanel.rightIsTouched();
+		upMove = Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)
+				||ControlPanel.upIsTouched();
+		downMove = Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)
+				|ControlPanel.downIsTouched();
 		
 		/*--------move the player---------*/
 		
