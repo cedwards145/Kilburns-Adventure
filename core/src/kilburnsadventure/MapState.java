@@ -3,11 +3,10 @@ package kilburnsadventure;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.TimeUtils;
 
 public class MapState extends GameState 
 {
@@ -22,6 +21,8 @@ public class MapState extends GameState
 	private int mapLvl;
 	private int frames = 0, noOfFramesBetween = 0;
 	float xPlayerPosX, xPlayerPosY;
+	private String testDrawNumber;
+	private BitmapFont font;
 	
 	public MapState(Game requiredGame, StateManager reqStateManager,
 			            int requiredMapLvl)
@@ -41,6 +42,8 @@ public class MapState extends GameState
 		player = new Player(game,this, 0,0);
 		// Add player to the list of objects.
 		objects.add(player);
+		font = new BitmapFont();
+		testDrawNumber = "";
 	}
 	
 	// Accessor Method.
@@ -104,6 +107,8 @@ public class MapState extends GameState
 		// Set camera to follow player's position.
 		gameRef.cameraLookAt(player.getPosition());
 		
+		testDrawNumber = "Score :" + player.getScore();
+		
 		// Spawn enemies.
 		if(frames > noOfFramesBetween)
 		{
@@ -151,6 +156,9 @@ public class MapState extends GameState
 		{
 			objects.get(object).draw(spriteBatch);
 		}
+		
+		font.draw(spriteBatch, testDrawNumber, 	gameRef.getCameraPosition().x - 400,
+				      gameRef.getCameraPosition().y + 230);
 	}
 }
 
