@@ -23,7 +23,7 @@ public class Bullet extends MapObject
 		damage = reqDamage;
 		graphic = new Texture("graphics/weapons/bullets/bullet.png");
 		firedByPlayer = playerBullet;
-		position = startPosition;
+		position = new Vector2(startPosition.x, startPosition.y);
 		map.addToObjectList(this);
 	}
 	
@@ -39,8 +39,11 @@ public class Bullet extends MapObject
 			if (object instanceof Player && !firedByPlayer)
 			{
 				Player player = (Player)object;
-				player.takeDamage(damage);
-				map.removeFromObjectList(this);
+				if (player.collides(position))
+				{
+					player.takeDamage(damage);
+					map.removeFromObjectList(this);
+				}
 			}
 			else if (object instanceof Enemy && firedByPlayer)
 			{
@@ -48,7 +51,7 @@ public class Bullet extends MapObject
 				if (enemy.collides(position))
 				{
 					enemy.takeDamage(damage);
-					map.removeFromObjectList(this);
+					//map.removeFromObjectList(this);
 				}
 			}
 		}

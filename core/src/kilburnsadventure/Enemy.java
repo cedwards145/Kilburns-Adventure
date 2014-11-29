@@ -55,4 +55,10 @@ public class Enemy extends MapObject{
 		Rectangle collisionBox = new Rectangle(position.x, position.y, graphic.getWidth(), graphic.getHeight());
 		return collisionBox.contains(point);
 	}
+	
+	public Rectangle getCollisionBox()
+	{
+		return new Rectangle(position.x, position.y, graphic.getWidth(), graphic.getHeight());
+	}
+	
 }
