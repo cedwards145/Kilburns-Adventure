@@ -17,8 +17,7 @@ public class Player extends GameObject{
 	public Player(Game game, int xPosition, int yPosition)
 	{
 	    super(game);
-	    playerPos.x = xPosition;
-	    playerPos.y = yPosition;
+	    playerPos = new Vector2(xPosition, yPosition);
 	    playerImage = new Texture("graphics/ballon.png");
 	}
 	
