@@ -143,6 +143,10 @@ public class Player extends MapObject{
 		return currentHP;
 	}
 	
+	public int getmaxHP()
+	{
+		return maxHP;
+	}
 	public void setMaxHP()
 	{
 		currentHP = maxHP;
@@ -153,8 +157,31 @@ public class Player extends MapObject{
 		currentHP -= damage;
 	}
 	
+	//functions used in HPItem
 	public void addHP(int reqHP)
 	{
+		switch (reqHP)
+		{
+		case 0: 
+			{
+				currentHP += 25;
+				if (currentHP > maxHP)
+					currentHP = maxHP;
+				break;
+			}
+		case 1: 
+			{
+				currentHP += 50;
+				if (currentHP > maxHP)
+					currentHP = maxHP;
+				break;
+			}
+		case 2: 
+			{
+				currentHP = maxHP;
+				break;
+			}
+		}
 		currentHP += reqHP;
 	}
 	
