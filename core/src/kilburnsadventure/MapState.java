@@ -1,6 +1,5 @@
 package kilburnsadventure;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MapState extends GameState 
 {
-	Texture map;
-	int mapID;
-	int noOfMaps;
-	List<GameObject> objects = new ArrayList<GameObject>();
-	String[] mapBackgrounds;
+	private Texture map;
+	private int mapID;
+	private List<GameObject> objects = new ArrayList<GameObject>();
+	private String[] mapBackgrounds;
 	
 	public MapState(Game game, StateManager stateManager,int requiredMapID)
 	{
@@ -24,13 +22,20 @@ public class MapState extends GameState
 		
 		mapBackgrounds = new String[10];
 		mapBackgrounds[0] = "lvl1.jpg";
-		map = new Texture("graphics/maps/lvl1.jpg");
+		mapBackgrounds[1] = "lvl2.jpg";
+		map = new Texture("graphics/maps/" + mapBackgrounds[mapID]);
+		Player player = new Player(game,0,0);
+		objects.add(player);
 	}
 	
 	@Override
 	public void update()
 	{
 		super.update();
+		for(int object = 0; object < objects.size(); object++)
+		{
+			objects.get(object).update();
+		}
 	}
 	
 	@Override
@@ -38,6 +43,10 @@ public class MapState extends GameState
 	{
 		super.draw(spriteBatch);
 		spriteBatch.draw(map, 0, 0);
+		for(int object = 0; object < objects.size(); object++)
+		{
+			objects.get(object).draw(spriteBatch);
+		}
 	}
 }
 
