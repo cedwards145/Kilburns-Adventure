@@ -2,7 +2,6 @@ package kilburnsadventure;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -57,7 +56,7 @@ public class MapState extends GameState
 			int different = 0;
 			for(int i = 0; i < noOfEnemies; i++)
 			{
-				different += 200;
+				different += 600;
 				Enemy pilots = new Enemy(game, this, different + xPlayerPosX, MathUtils.random(50,400));
 				addToObjectList(pilots);
 			}
