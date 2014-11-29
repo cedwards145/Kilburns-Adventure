@@ -13,6 +13,8 @@ public class Game extends ApplicationAdapter {
 	
 	protected OrthographicCamera camera;
 	
+	protected GameState currentState;
+	
 	@Override
 	public void create () 
 	{
@@ -20,12 +22,15 @@ public class Game extends ApplicationAdapter {
 		camera.setToOrtho(false, 800, 480);
 		
 		spriteBatch = new SpriteBatch();
+		
+		currentState = new MapState(this);
 		// Create game objects here
 	}
 	
 	public void update()
 	{
 		camera.update();
+		currentState.update();
 		
 		// Update code goes here
 	}
@@ -38,6 +43,7 @@ public class Game extends ApplicationAdapter {
 		spriteBatch.begin();
 		
 		// Draw code goes here
+		currentState.draw(spriteBatch);
 		
 		spriteBatch.end();
 	}
