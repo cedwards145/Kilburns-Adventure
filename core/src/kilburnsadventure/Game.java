@@ -79,10 +79,14 @@ public class Game extends ApplicationAdapter {
 	
 	public void cameraLookAt(Vector2 position)
 	{
-		position.x = (position.x > 0 ? position.x : 0);
-		position.y = (position.y > 0 ? position.y : 0);
+		float x = position.x;
+		if (x < width / 2)
+			x = width / 2;
 		
-		camera.position.set(position.x, position.y, 0);
+		float y = position.y;
+		if (y < height / 2)
+			y = height / 2;
+		camera.position.set(x, y, 0);
 	}
 	
 	public void setLevelsUnlocked(int value)
