@@ -12,8 +12,8 @@ public class Game extends ApplicationAdapter {
 	protected Texture img;
 	
 	protected OrthographicCamera camera;
-	
-	protected GameState currentState;
+
+	protected StateManager stateManager;
 	
 	@Override
 	public void create () 
@@ -23,14 +23,17 @@ public class Game extends ApplicationAdapter {
 		
 		spriteBatch = new SpriteBatch();
 		
-		currentState = new MapState(this);
+		stateManager = new StateManager(this);
+		stateManager.addState(new TitleState(this, stateManager));
+		
 		// Create game objects here
 	}
 	
 	public void update()
 	{
 		camera.update();
-		currentState.update();
+		
+		stateManager.update();
 		
 		// Update code goes here
 	}
@@ -39,11 +42,9 @@ public class Game extends ApplicationAdapter {
 	{
 		spriteBatch.setProjectionMatrix(camera.combined);
 		
-		
-		spriteBatch.begin();
-		
+		spriteBatch.begin();		
 		// Draw code goes here
-		currentState.draw(spriteBatch);
+		stateManager.draw(spriteBatch);
 		
 		spriteBatch.end();
 	}

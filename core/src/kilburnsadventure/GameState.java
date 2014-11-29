@@ -5,9 +5,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameState extends GameObject 
 {
 
-	public GameState(Game game)
+	protected StateManager stateManager;
+	
+	public GameState(Game game, StateManager manager)
 	{
 		super(game);
+		
+		stateManager = manager;
 	}
 	
 	@Override
