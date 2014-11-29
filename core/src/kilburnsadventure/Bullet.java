@@ -7,20 +7,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 
-public class Bullet extends GameObject 
+public class Bullet extends MapObject 
 {
 	public static final int LEFT = -1, RIGHT = 1;
 	
-	protected Vector2 position;
 	protected float speed = 3f;
 	protected int direction, damage;
 	protected Texture graphic;
-	protected MapState map;
 	protected boolean firedByPlayer;
 	
 	public Bullet(Game game, MapState reqMap, boolean playerBullet, int reqDamage, int reqDirection, Vector2 startPosition)
 	{
-		super(game);
+		super(game, reqMap);
 		direction = reqDirection;
 		damage = reqDamage;
 		graphic = new Texture("graphics/weapons/bullets/bullet.png");
