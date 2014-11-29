@@ -32,6 +32,9 @@ public class StateManager extends GameObject
 		
 		for (GameState state : toRemove)
 			gameStates.remove(state);
+		
+		toAdd.clear();
+		toRemove.clear();
 	}
 	
 	@Override

@@ -36,11 +36,8 @@ public class TitleState extends GameState
 		else if (Gdx.input.isKeyPressed(Input.Keys.ENTER))
 		{
 			stateManager.removeState(this);
-			stateManager.addState(new MapState(gameRef, stateManager, 1));
+			stateManager.addState(new LevelSelectState(gameRef, stateManager));
 		}
-		
-		balloonPos.y += balloonDirection;
-		if (balloonPos.y < 125 || balloonPos.y > 175)
-			balloonDirection *= -1;
+
 	}
 }
