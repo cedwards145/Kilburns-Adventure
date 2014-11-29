@@ -30,7 +30,7 @@ public class LevelSelectState extends GameState
 		if (Gdx.input.isTouched())
 		{
 			int x = Gdx.input.getX();
-			int y = Gdx.input.getY();
+			int y = gameRef.getHeight() - Gdx.input.getY();
 			
 			for (int levelIndex = 0; levelIndex < buttons.length; levelIndex++)
 			{

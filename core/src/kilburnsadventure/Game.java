@@ -13,12 +13,15 @@ public class Game extends ApplicationAdapter {
 	protected OrthographicCamera camera;
 
 	protected StateManager stateManager;
+	protected int width, height;
 	
 	@Override
 	public void create () 
 	{
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
+		width = 800;
+		height = 480;
 		
 		spriteBatch = new SpriteBatch();
 		
@@ -58,5 +61,15 @@ public class Game extends ApplicationAdapter {
 		draw();
 		
 		// Don't change this!
+	}
+	
+	public int getWidth()
+	{
+		return width;
+	}
+	
+	public int getHeight()
+	{
+		return height;
 	}
 }

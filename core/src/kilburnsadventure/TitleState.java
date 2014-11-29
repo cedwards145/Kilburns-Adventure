@@ -33,7 +33,8 @@ public class TitleState extends GameState
 	{
 		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
 			Gdx.app.exit();
-		else if (Gdx.input.isKeyPressed(Input.Keys.ENTER))
+		else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) || 
+				 Gdx.input.isTouched())
 		{
 			stateManager.removeState(this);
 			stateManager.addState(new LevelSelectState(gameRef, stateManager));
