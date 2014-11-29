@@ -98,4 +98,9 @@ public class Game extends ApplicationAdapter {
 	{
 		return levelsUnlocked;
 	}
+	
+	public Vector2 getCameraPosition()
+	{
+		return new Vector2(camera.position.x, camera.position.y);
+	}
 }

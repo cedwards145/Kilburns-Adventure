@@ -11,7 +11,7 @@ public class Bullet extends MapObject
 {
 	public static final int LEFT = -1, RIGHT = 1;
 	
-	protected float speed = 3f;
+	protected float speed = 5f;
 	protected int direction, damage;
 	protected Texture graphic;
 	protected boolean firedByPlayer;

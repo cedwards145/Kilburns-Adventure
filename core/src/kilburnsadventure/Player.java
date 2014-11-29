@@ -12,6 +12,7 @@ public class Player extends MapObject{
 
 	//baloon image
 	private Texture playerImage;
+	protected Weapon weapon;
 	
 	//player constructor
 	public Player(Game game, MapState containingMap, int xPosition, int yPosition)
@@ -19,12 +20,15 @@ public class Player extends MapObject{
 	    super(game, containingMap);
 	    position = new Vector2(xPosition, yPosition);
 	    playerImage = new Texture("graphics/ballon.png");
+	    
+	    weapon = Weapon.AK47;
 	}	
 	
 	@Override
 	public void update()
 	{
 		updateMotion();
+		weapon.update();
 	}
 	
 	@Override
@@ -80,9 +84,9 @@ public class Player extends MapObject{
 		
 	
 		// Fire bullet
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && weapon.canFire())
 		{
-			Bullet bullet = new Bullet(gameRef, map, true, 10, Bullet.RIGHT, position);
+			Bullet bullet = new Bullet(gameRef, map, true, weapon.getDamage(), Bullet.RIGHT, position);
 		}
 		
 	}

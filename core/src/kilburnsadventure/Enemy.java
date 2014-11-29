@@ -8,9 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 public class Enemy extends MapObject{
 
 	protected int framesSinceLastShot = 0, framesPerShot = 60;
-	protected float speed = 2;
+	protected float speed = 1;
 	protected Texture graphic;
-	protected int maxHealth = 100, health = 100;
+	protected int maxHealth = 20, health = 20;
 	
 	public Enemy(Game game, MapState containingMap, float xPosition, float yPosition)
 	{
@@ -25,13 +25,16 @@ public class Enemy extends MapObject{
 	{
 		position.x -= speed;
 		
-		if (framesSinceLastShot >= framesPerShot)
+		if (position.x < gameRef.getCameraPosition().x + (gameRef.getWidth() / 2))
 		{
-			fire();
-			framesSinceLastShot = 0;
+			if (framesSinceLastShot >= framesPerShot)
+			{
+				fire();
+				framesSinceLastShot = 0;
+			}
+			else
+				framesSinceLastShot++;
 		}
-		else
-			framesSinceLastShot++;
 	}
 	
 	@Override
