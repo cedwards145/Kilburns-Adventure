@@ -11,6 +11,7 @@ public class Enemy extends MapObject{
 	protected float speed = 1;
 	protected Texture graphic;
 	protected int maxHealth = 20, health = 20;
+	protected int scoreOfThisEnemy = 1;
 	
 	public Enemy(Game game, MapState containingMap, float xPosition, float yPosition)
 	{
@@ -53,7 +54,10 @@ public class Enemy extends MapObject{
 		health -= damage;
 		
 		if (health <= 0)
+		{
 			map.removeFromObjectList(this);
+			play.addScore(scoreOfThisEnemy);
+		}
 	}
 	
 	public boolean collides(Vector2 point)

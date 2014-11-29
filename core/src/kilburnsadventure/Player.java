@@ -13,6 +13,7 @@ public class Player extends MapObject{
 	//baloon image
 	private Texture playerImage;
 	protected Weapon weapon;
+	private int score = 0;
 	
 	//player constructor
 	public Player(Game game, MapState containingMap, int xPosition, int yPosition)
@@ -127,4 +128,11 @@ public class Player extends MapObject{
 		return new Rectangle(position.x, position.y, playerImage.getWidth(), playerImage.getHeight());
 	}
 	
+	//Score-----------------------------------------------------------------------------------------------------
+	public addScore(int givenScore)
+	{
+	  score += givenScore;
+	}//addScore
+	
+	//Score-----------------------------------------------------------------------------------------------------
 }
