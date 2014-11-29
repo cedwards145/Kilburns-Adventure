@@ -56,7 +56,7 @@ public class Enemy extends MapObject{
 		if (health <= 0)
 		{
 			map.removeFromObjectList(this);
-			play.addScore(scoreOfThisEnemy);
+			map.getPlayer().addScore(scoreOfThisEnemy);
 		}
 	}
 	

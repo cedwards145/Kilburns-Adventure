@@ -134,5 +134,10 @@ public class Player extends MapObject{
 	  score += givenScore;
 	}//addScore
 	
+	public int getScore()
+	{
+		return score;
+	}//getScore
+	
 	//Score-----------------------------------------------------------------------------------------------------
 }
