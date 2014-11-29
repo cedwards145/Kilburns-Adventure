@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Game extends ApplicationAdapter {
 	protected SpriteBatch spriteBatch;
-	protected Texture img;
 	
 	protected OrthographicCamera camera;
 

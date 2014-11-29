@@ -9,7 +9,7 @@ public class GameObject
 	
 	// If an object is enabled, it will update.
 	// If an object is visible, it will draw.
-	protected boolean enabled, visible;
+	protected boolean enabled = true, visible = true;
 	
 	public GameObject(Game game)
 	{
