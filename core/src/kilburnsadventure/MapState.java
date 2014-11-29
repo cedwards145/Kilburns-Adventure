@@ -20,6 +20,7 @@ public class MapState extends GameState
 	private Enemy pilots;
 	private Game game;
 	private float lastSpawnTime;
+	private int spawnPosition;
 	
 	public MapState(Game requiredGame, StateManager stateManager,int requiredMapID)
 	{
@@ -50,18 +51,19 @@ public class MapState extends GameState
 		return toRemove.add(object);
 	}
 	
-	public void spawnEnemies(int noOfEnemies, int waves)
+	public void spawnEnemies(int noOfEnemies, int position)
 	{
 		float xPlayerPos = player.getPlayerPos().x;
 		//float yPlayerPos = player.getPlayerPos().y;
 		
+		spawnPosition = position;
 		if (xPlayerPos > 300)
 		{
 			int different = 0;
 			for(int i = 0; i < noOfEnemies; i++)
 			{
 				different += 50;
-				pilots = new Enemy(game, this, 800,different);
+				pilots = new Enemy(game, this, position,different);
 				addToObjectList(pilots);
 			}
 		}
@@ -90,6 +92,7 @@ public class MapState extends GameState
 		{
 			objects.remove(toRemove.get(object));
 		}
+		
 		
 		toAdd.clear();
 		toRemove.clear();
