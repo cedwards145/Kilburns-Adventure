@@ -12,7 +12,7 @@ public class Enemy extends MapObject{
 	protected Texture graphic;
 	protected int maxHealth = 100, health = 100;
 	
-	public Enemy(Game game, MapState containingMap, int xPosition, int yPosition)
+	public Enemy(Game game, MapState containingMap, float xPosition, float yPosition)
 	{
 		super(game, containingMap);
 		position = new Vector2(xPosition, yPosition);
