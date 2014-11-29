@@ -16,8 +16,10 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () 
 	{
-		camera = new OrthographicCamera(800, 480);
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, 800, 480);
 		
+		spriteBatch = new SpriteBatch();
 		// Create game objects here
 	}
 	
