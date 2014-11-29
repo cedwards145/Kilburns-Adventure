@@ -48,6 +48,9 @@ public class Enemy extends MapObject{
 	public void takeDamage(int damage)
 	{
 		health -= damage;
+		
+		if (health <= 0)
+			map.removeFromObjectList(this);
 	}
 	
 	public boolean collides(Vector2 point)

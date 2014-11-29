@@ -84,8 +84,8 @@ public class Game extends ApplicationAdapter {
 			x = width / 2;
 		
 		float y = position.y;
-		if (y < height / 2)
-			y = height / 2;
+		
+		y = height / 2;
 		camera.position.set(x, y, 0);
 	}
 	

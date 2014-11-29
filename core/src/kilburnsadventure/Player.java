@@ -1,6 +1,7 @@
 package kilburnsadventure;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -71,8 +72,16 @@ public class Player extends MapObject{
 			position.y = 0;
 		//if (playerPos.x > 650)
 			//playerPos.x = 650;
-		if (position.y > 200)
-			position.y = 200;
+		if (position.y > gameRef.getHeight() - playerImage.getHeight())
+			position.y = gameRef.getHeight() - playerImage.getHeight();
+		
+	
+		// Fire bullet
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
+		{
+			Bullet bullet = new Bullet(gameRef, map, true, 10, Bullet.RIGHT, position);
+		}
+		
 	}
 	/*-------------------------------------------------------------------*/
 	
