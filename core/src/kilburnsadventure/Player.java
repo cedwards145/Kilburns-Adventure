@@ -73,8 +73,8 @@ public class Player extends GameObject{
 			playerPos.x = 0;
 		if (playerPos.y < 0)
 			playerPos.y = 0;
-		if (playerPos.x > 650)
-			playerPos.x = 650;
+		//if (playerPos.x > 650)
+			//playerPos.x = 650;
 		if (playerPos.y > 200)
 			playerPos.y = 200;
 		/*-------------------------------------------------------------------*/
