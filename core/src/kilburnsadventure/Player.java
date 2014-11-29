@@ -25,6 +25,7 @@ public class Player extends MapObject{
 	    position = new Vector2(xPosition, yPosition);
 	    playerImage = new Texture("graphics/ballon.png");
 	    
+	    currentHP = maxHP;
 	    weapon = Weapon.AK47;
 	}	
 	
