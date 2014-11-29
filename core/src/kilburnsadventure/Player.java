@@ -2,19 +2,24 @@ package kilburnsadventure;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class Player extends GameObject{
 
+	//baloon image
+	private Texture playerImage;
 	//coordinates of Player
-	private int x, y;
+	private Vector2 playerPos;
 	
 	//player constructor
 	public Player(Game game, int xPosition, int yPosition)
 	{
 	    super(game);
-	    x = xPosition;
-	    y = yPosition;
+	    playerPos.x = xPosition;
+	    playerPos.y = yPosition;
+	    playerImage = new Texture("graphics/ballon.png");
 	}
 	
 	@Override
@@ -26,7 +31,8 @@ public class Player extends GameObject{
 	@Override
 	public void draw(SpriteBatch spriteBatch)
 	{
-		
+		super.draw(spriteBatch);
+		spriteBatch.draw(playerImage, playerPos.x, playerPos.y);	
 	}
 	
 	
@@ -40,27 +46,27 @@ public class Player extends GameObject{
 		
 		/*--------move the player---------*/
 		if (leftMove)
-			x -= 80;
+			playerPos.x -= 80;
 		
 		if (rightMove)
-			x += 80;
+			playerPos.x += 80;
 		
 		if (upMove)
-			y += 48;
+			playerPos.y += 48;
 		
 		if (downMove)
-			y -= 48;
+			playerPos.y-= 48;
 		/*---------------------------------*/
 		
 		/*-------------make sure player does not run out of bound-----------*/
-		if (x < 0)
-			x = 0;
-		if (y < 0)
-			y = 0;
-		if (x > 800)
-		    x = 800;
-		if (y > 480)
-			y = 480;
+		if (playerPos.x < 0)
+			playerPos.x = 0;
+		if (playerPos.y < 0)
+			playerPos.y = 0;
+		if (playerPos.x > 800)
+			playerPos.x = 800;
+		if (playerPos.y > 480)
+			playerPos.y = 480;
 		/*-------------------------------------------------------------------*/
 		
 	}
