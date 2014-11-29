@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class Game extends ApplicationAdapter {
 	protected SpriteBatch spriteBatch;
@@ -54,6 +55,7 @@ public class Game extends ApplicationAdapter {
 		spriteBatch.end();
 	}
 
+
 	@Override
 	public void render () 
 	{
@@ -71,5 +73,10 @@ public class Game extends ApplicationAdapter {
 	public int getHeight()
 	{
 		return height;
+	}
+	
+	public void cameraLookAt(Vector2 position)
+	{
+		camera.position.set(position);
 	}
 }
