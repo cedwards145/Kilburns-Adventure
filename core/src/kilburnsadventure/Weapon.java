@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 
 public class Weapon 
 {
-	public static Weapon AK47 = new Weapon("Ak-47", 10, 20, "AK-47.wav");
+	public static Weapon AK47 = new Weapon("Ak-47", 10, 20, "AK47.wav");
 
 	
 	protected String name;
