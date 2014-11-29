@@ -50,12 +50,15 @@ public class Player extends MapObject{
 		
 		/*--------move the player---------*/
 		
-		float xSpeed = 80/20;
-		float ySpeed = 48/20;
-		if (leftMove)
-			position.x -= xSpeed;
+		//float xSpeed = 80/20;
+		//float ySpeed = 48/20;
+		float xSpeed = 1;
+		float ySpeed = 1;
 		
-		if (rightMove)
+		//if (leftMove)
+		//	position.x -= xSpeed;
+		
+		//if (rightMove)
 			position.x += xSpeed;
 		
 		if (upMove)

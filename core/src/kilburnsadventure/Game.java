@@ -79,7 +79,7 @@ public class Game extends ApplicationAdapter {
 	
 	public void cameraLookAt(Vector2 position)
 	{
-		float x = position.x;
+		float x = position.x + 300;
 		if (x < width / 2)
 			x = width / 2;
 		

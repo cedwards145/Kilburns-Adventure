@@ -51,7 +51,7 @@ public class Bullet extends MapObject
 				if (enemy.collides(position))
 				{
 					enemy.takeDamage(damage);
-					//map.removeFromObjectList(this);
+					map.removeFromObjectList(this);
 				}
 			}
 		}
