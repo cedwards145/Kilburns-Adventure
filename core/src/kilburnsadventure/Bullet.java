@@ -1,5 +1,7 @@
 package kilburnsadventure;
 
+import java.util.List;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -11,20 +13,43 @@ public class Bullet extends GameObject
 	
 	protected Vector2 position;
 	protected float speed = 3f;
-	protected int direction;
+	protected int direction, damage;
 	protected Texture graphic;
+	protected MapState map;
+	protected boolean firedByPlayer;
 	
-	public Bullet(Game game, int reqDirection)
+	public Bullet(Game game, MapState reqMap, boolean playerBullet, int reqDamage, int reqDirection)
 	{
 		super(game);
 		direction = reqDirection;
+		damage = reqDamage;
 		graphic = new Texture("graphics/weapons/bullets/bullet.png");
+		firedByPlayer = playerBullet;
+		map = reqMap;
 	}
 	
 	@Override
 	public void update()
 	{
 		position.x += (speed * direction);
+		
+//		List<GameObject> mapObjects = map.getObjects();
+//		
+//		for (GameObject object : mapObjects)
+//		{
+//			if (object instanceof Player && !firedByPlayer)
+//			{
+//				Player player = (Player)object;
+//				player.takeDamage(damage);
+//				map.removeObject(this);
+//			}
+//			else if (object instanceof Enemy && firedByPlayer)
+//			{
+//				Enemy enemy = (Enemy)object;
+//				enemy.takeDamage(damage);
+//				map.removeObject(this);
+//			}
+//		}
 	}
 	
 	@Override

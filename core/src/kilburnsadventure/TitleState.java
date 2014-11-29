@@ -10,7 +10,7 @@ public class TitleState extends GameState
 {
 	private Texture titleImage, balloonImage;
 	private Vector2 balloonPos;
-	private float balloonDirection = -1f;
+	
 	
 	public TitleState(Game game, StateManager manager)
 	{
