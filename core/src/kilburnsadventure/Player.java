@@ -21,6 +21,13 @@ public class Player extends GameObject{
 	    playerImage = new Texture("graphics/ballon.png");
 	}
 	
+	//get position vector of player
+	public Vector2 getPalyerPos()
+	{
+		return playerPos;
+	}
+	
+	
 	@Override
 	public void update()
 	{
@@ -45,17 +52,20 @@ public class Player extends GameObject{
 		downMove = Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S);
 		
 		/*--------move the player---------*/
+		
+		float xSpeed = 80/20;
+		float ySpeed = 48/20;
 		if (leftMove)
-			playerPos.x -= 80;
+			playerPos.x -= xSpeed;
 		
 		if (rightMove)
-			playerPos.x += 80;
+			playerPos.x += xSpeed;
 		
 		if (upMove)
-			playerPos.y += 48;
+			playerPos.y += ySpeed;
 		
 		if (downMove)
-			playerPos.y-= 48;
+			playerPos.y -= ySpeed;
 		/*---------------------------------*/
 		
 		/*-------------make sure player does not run out of bound-----------*/
@@ -63,10 +73,10 @@ public class Player extends GameObject{
 			playerPos.x = 0;
 		if (playerPos.y < 0)
 			playerPos.y = 0;
-		if (playerPos.x > 800)
-			playerPos.x = 800;
-		if (playerPos.y > 480)
-			playerPos.y = 480;
+		if (playerPos.x > 650)
+			playerPos.x = 650;
+		if (playerPos.y > 200)
+			playerPos.y = 200;
 		/*-------------------------------------------------------------------*/
 		
 	}
