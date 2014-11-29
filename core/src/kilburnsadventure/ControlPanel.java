@@ -32,7 +32,7 @@ public class ControlPanel extends GameObject{
 	
 	public static boolean rightIsTouched()
 	{
-		return ((40 < Gdx.input.getX() )&& ((Gdx.input.getX()< 100)) && (480-Gdx.input.getY() < 100));
+		return ((40 < Gdx.input.getX())&& (Gdx.input.getX()< 100) && (480-Gdx.input.getY() < 100));
 	}
 	
 	public static boolean upIsTouched()

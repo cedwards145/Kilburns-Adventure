@@ -81,9 +81,26 @@ public class Player extends GameObject{
 			//playerPos.x = 650;
 		if (playerPos.y > 200)
 			playerPos.y = 200;
-		/*-------------------------------------------------------------------*/
-		
-		/*------------Player Health----------------------------*/
-		
 	}
+	/*-------------------------------------------------------------------*/
+	
+	/*------------Player HP----------------------------*/
+	private static final int maxHP = 100;
+	private int currentHP;
+	
+	public int getCurrentHP()
+	{
+		return currentHP;
+	}
+	
+	public void setMaxHP()
+	{
+		currentHP = maxHP;
+	}
+	
+	public void takeDamage(int damage)
+	{
+		currentHP -= damage;
+	}
+	
 }
