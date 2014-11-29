@@ -17,8 +17,7 @@ public class Player extends GameObject{
 	public Player(Game game, int xPosition, int yPosition)
 	{
 	    super(game);
-	    playerPos.x = xPosition;
-	    playerPos.y = yPosition;
+	    playerPos = new Vector2(xPosition, yPosition);
 	    playerImage = new Texture("graphics/ballon.png");
 	}
 	
@@ -38,11 +37,12 @@ public class Player extends GameObject{
 	
 	private void updateMotion(){
 		boolean leftMove, rightMove, upMove, downMove;
+		
 		//If key is pressed
-		leftMove = Gdx.input.isKeyPressed(Keys.LEFT);
-		rightMove = Gdx.input.isKeyPressed(Keys.RIGHT);
-		upMove = Gdx.input.isKeyPressed(Keys.UP);
-		downMove = Gdx.input.isKeyPressed(Keys.DOWN);
+		leftMove = Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A);
+		rightMove = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D);
+		upMove = Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W);
+		downMove = Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S);
 		
 		/*--------move the player---------*/
 		if (leftMove)
