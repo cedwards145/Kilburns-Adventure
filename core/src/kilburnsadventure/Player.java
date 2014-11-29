@@ -22,7 +22,7 @@ public class Player extends GameObject{
 	}
 	
 	//get position vector of player
-	public Vector2 getPalyerPos()
+	public Vector2 getPlayerPos()
 	{
 		return playerPos;
 	}
