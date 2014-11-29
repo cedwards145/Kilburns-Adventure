@@ -17,6 +17,10 @@ public class TitleState extends GameState
 	private Texture quitImage;
 	private Vector2 quitPos;
 	
+	private Rectangle startButton;
+	private Texture startImage;
+	private Vector2 startPos;
+	
 	
 	public TitleState(Game game, StateManager manager)
 	{
@@ -25,6 +29,9 @@ public class TitleState extends GameState
 		balloonImage = new Texture("graphics/ballon.png");
 		balloonPos = new Vector2(600, 150);
 		
+		startImage = new Texture("graphics/startImage.jpg");
+		startPos = new Vector2(0, game.getHeight() / 2);
+		startButton = new Rectangle(startPos.x, startPos.y, 126, 126);
 		
 		quitImage = new Texture("graphics/quitImage.jpg");
 		quitPos = new Vector2(game.getWidth() / 2, game.getHeight() / 2);
@@ -36,6 +43,7 @@ public class TitleState extends GameState
 	{
 		super.draw(spriteBatch);
 		spriteBatch.draw(titleImage, 0, 0);
+		spriteBatch.draw(startImage, startPos.x, startPos.y);
 		spriteBatch.draw(quitImage, quitPos.x, quitPos.y);
 		spriteBatch.draw(balloonImage, balloonPos.x, balloonPos.y);
 	}
@@ -46,19 +54,25 @@ public class TitleState extends GameState
 		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
 			Gdx.app.exit();
 		else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) || 
-				 Gdx.input.isTouched())
-		{
-			stateManager.removeState(this);
-			stateManager.addState(new LevelSelectState(gameRef, stateManager));
-		}
-		
-		//Quit Button action
-		if (Gdx.input.isTouched())
+			Gdx.input.isTouched())
 		{
 			Vector3 touchPoint = gameRef.getCamera().unproject( new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0) );
 			if(quitButton.contains(touchPoint.x, touchPoint.y))
 				Gdx.app.exit();
-		}//if
+			else if(startButton.contains(touchPoint.x, touchPoint.y))
+			{
+		    stateManager.removeState(this);
+			  stateManager.addState(new LevelSelectState(gameRef, stateManager));
+			}
+		}
+		
+		//Quit Button action
+	//	if (Gdx.input.isTouched())
+//		{
+			//Vector3 touchPoint = gameRef.getCamera().unproject( new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0) );
+		//	if(quitButton.contains(touchPoint.x, touchPoint.y))
+	//			Gdx.app.exit();
+//		}//if
 
 	}
 }
