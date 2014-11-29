@@ -12,6 +12,8 @@ public class Enemy extends MapObject{
 	protected Texture graphic;
 	protected int maxHealth = 20, health = 20;
 	protected int scoreOfThisEnemy = 1;
+	protected boolean falling = false;
+	protected float rotation = 0f;
 	
 	public Enemy(Game game, MapState containingMap, float xPosition, float yPosition)
 	{
@@ -24,17 +26,31 @@ public class Enemy extends MapObject{
 	@Override
 	public void update()
 	{
-		position.x -= speed;
+position.x -= speed;
 		
-		if (position.x < gameRef.getCameraPosition().x + (gameRef.getWidth() / 2))
+		if (falling)
 		{
-			if (framesSinceLastShot >= framesPerShot)
+			if (rotation < 90)
+				rotation += 0.5f;
+			position.y -= speed * 3;
+			if (position.y < -50)
+				map.removeFromObjectList(this);
+		}
+		else
+		{
+			float playerY = map.getPlayer().getPosition().y;
+			
+			if (position.x < gameRef.getCameraPosition().x + (gameRef.getWidth() / 2)
+			      && (playerY < position.y + 50 && playerY > position.y - 150))
 			{
-				fire();
-				framesSinceLastShot = 0;
+				if (framesSinceLastShot >= framesPerShot)
+				{
+					fire();
+					framesSinceLastShot = 0;
+				}
+				else
+					framesSinceLastShot++;
 			}
-			else
-				framesSinceLastShot++;
 		}
 	}
 	

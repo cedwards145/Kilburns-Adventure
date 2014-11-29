@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class Player extends MapObject{
 
@@ -14,6 +16,7 @@ public class Player extends MapObject{
 	private Texture playerImage;
 	protected Weapon weapon;
 	private int score = 0;
+	protected int movementTouchIndex, weaponTouchIndex;
 	
 	//player constructor
 	public Player(Game game, MapState containingMap, int xPosition, int yPosition)
@@ -41,18 +44,55 @@ public class Player extends MapObject{
 	
 	
 	public void updateMotion(){
-		//Moving options
-		boolean leftMove, rightMove, upMove, downMove;
-		//If key is pressed
-		leftMove = Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)
-				||ControlPanel.leftIsTouched();
-		rightMove = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)
-				||ControlPanel.rightIsTouched();
-		upMove = Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)
-				||ControlPanel.upIsTouched();
-		downMove = Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)
-				|ControlPanel.downIsTouched();
+		movementTouchIndex = -1;
+		weaponTouchIndex = -1;
 		
+		if (Gdx.input.isTouched(0))
+		{
+			Vector3 touchPosition3 = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(0), Gdx.input.getY(0), 0));
+			Vector2 touchPosition = new Vector2(touchPosition3.x, touchPosition3.y);
+			
+			if (ControlPanel.contains(touchPosition))
+				movementTouchIndex = 0;
+			else
+				weaponTouchIndex = 0;
+		}
+		if (Gdx.input.isTouched(1))
+		{
+			Vector3 touchPosition3 = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(1), Gdx.input.getY(1), 0));
+			Vector2 touchPosition = new Vector2(touchPosition3.x, touchPosition3.y);
+			
+			if (ControlPanel.contains(touchPosition))
+				movementTouchIndex = 1;
+			else
+				weaponTouchIndex = 1;
+		}
+		
+		//Moving options
+		boolean leftMove = false, rightMove = false, upMove = false, downMove = false;
+		
+		if (movementTouchIndex != -1 && Gdx.input.isTouched(movementTouchIndex))
+		{
+			Vector3 touchPosition3 = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(movementTouchIndex), Gdx.input.getY(movementTouchIndex), 0));
+			Vector2 touchPosition = new Vector2(touchPosition3.x, touchPosition3.y);
+			
+			//If key is pressed
+			leftMove = Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)
+					||ControlPanel.leftIsTouched(touchPosition);
+			rightMove = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)
+					||ControlPanel.rightIsTouched(touchPosition);
+			upMove = Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)
+					||ControlPanel.upIsTouched(touchPosition);
+			downMove = Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)
+					||ControlPanel.downIsTouched(touchPosition);
+		}
+		else
+		{
+			leftMove = Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A);
+			rightMove = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D);
+			upMove = Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W);
+			downMove = Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S);
+		}
 		/*--------move the player---------*/
 		
 		//float xSpeed = 80/20;
@@ -85,7 +125,7 @@ public class Player extends MapObject{
 		
 	
 		// Fire bullet
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && weapon.canFire())
+		if (weaponTouchIndex != -1 && Gdx.input.isTouched(weaponTouchIndex) && weapon.canFire())
 		{
 			Bullet bullet = new Bullet(gameRef, map, true, weapon.getDamage(), Bullet.RIGHT, position);
 		}

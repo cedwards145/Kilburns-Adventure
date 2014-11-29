@@ -39,6 +39,7 @@ public class Game extends ApplicationAdapter {
 		camera.update();
 		
 		stateManager.update();
+		ControlPanel.staticUpdate(this);
 		
 		// Update code goes here
 	}
@@ -102,5 +103,10 @@ public class Game extends ApplicationAdapter {
 	public Vector2 getCameraPosition()
 	{
 		return new Vector2(camera.position.x, camera.position.y);
+	}
+	
+	public OrthographicCamera getCamera()
+	{
+		return camera;
 	}
 }
