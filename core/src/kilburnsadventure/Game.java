@@ -16,6 +16,8 @@ public class Game extends ApplicationAdapter {
 	protected StateManager stateManager;
 	protected int width, height;
 	
+	protected int levelsUnlocked = 0;
+	
 	@Override
 	public void create () 
 	{
@@ -81,5 +83,15 @@ public class Game extends ApplicationAdapter {
 		position.y = (position.y > 0 ? position.y : 0);
 		
 		camera.position.set(position.x, position.y, 0);
+	}
+	
+	public void setLevelsUnlocked(int value)
+	{
+		levelsUnlocked = value;
+	}
+	
+	public int getLevelsUnlocked()
+	{
+		return levelsUnlocked;
 	}
 }
