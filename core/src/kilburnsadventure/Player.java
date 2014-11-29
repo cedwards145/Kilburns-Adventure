@@ -6,27 +6,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class Player extends GameObject{
+public class Player extends MapObject{
 
 	//baloon image
 	private Texture playerImage;
-	//coordinates of Player
-	private Vector2 playerPos;
 	
 	//player constructor
-	public Player(Game game, int xPosition, int yPosition)
+	public Player(Game game, MapState containingMap, int xPosition, int yPosition)
 	{
-	    super(game);
-	    playerPos = new Vector2(xPosition, yPosition);
+	    super(game, containingMap);
+	    position = new Vector2(xPosition, yPosition);
 	    playerImage = new Texture("graphics/ballon.png");
-	}
-	
-	//get position vector of player
-	public Vector2 getPlayerPos()
-	{
-		return playerPos;
-	}
-	
+	}	
 	
 	@Override
 	public void update()
@@ -38,7 +29,7 @@ public class Player extends GameObject{
 	public void draw(SpriteBatch spriteBatch)
 	{
 		super.draw(spriteBatch);
-		spriteBatch.draw(playerImage, playerPos.x, playerPos.y);	
+		spriteBatch.draw(playerImage, position.x, position.y);	
 	}
 	
 	
@@ -60,27 +51,27 @@ public class Player extends GameObject{
 		float xSpeed = 80/20;
 		float ySpeed = 48/20;
 		if (leftMove)
-			playerPos.x -= xSpeed;
+			position.x -= xSpeed;
 		
 		if (rightMove)
-			playerPos.x += xSpeed;
+			position.x += xSpeed;
 		
 		if (upMove)
-			playerPos.y += ySpeed;
+			position.y += ySpeed;
 		
 		if (downMove)
-			playerPos.y -= ySpeed;
+			position.y -= ySpeed;
 		/*---------------------------------*/
 		
 		/*-------------make sure player does not run out of bound-----------*/
-		if (playerPos.x < 0)
-			playerPos.x = 0;
-		if (playerPos.y < 0)
-			playerPos.y = 0;
+		if (position.x < 0)
+			position.x = 0;
+		if (position.y < 0)
+			position.y = 0;
 		//if (playerPos.x > 650)
 			//playerPos.x = 650;
-		if (playerPos.y > 200)
-			playerPos.y = 200;
+		if (position.y > 200)
+			position.y = 200;
 	}
 	/*-------------------------------------------------------------------*/
 	

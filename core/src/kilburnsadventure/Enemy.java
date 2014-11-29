@@ -5,24 +5,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Enemy extends GameObject{
+public class Enemy extends MapObject{
 
-	//enemy positions coordinates
-	protected Vector2 position;
 	protected int framesSinceLastShot = 0, framesPerShot = 60;
 	protected float speed = 2;
 	protected Texture graphic;
 	protected int maxHealth = 100, health = 100;
-	protected MapState map;
 	
 	public Enemy(Game game, MapState containingMap, int xPosition, int yPosition)
 	{
-		super(game);
+		super(game, containingMap);
 
-		position = new Vector2(xPosition, yPosition); 
 		graphic = new Texture("graphics/enemies/dummy.png");
-		
-		map = containingMap;
 	}
 	
 	@Override
@@ -47,7 +41,7 @@ public class Enemy extends GameObject{
 	
 	public void fire()
 	{
-		Bullet bullet = new Bullet(gameRef, map, false, 5, -1, position);
+		Bullet bullet = new Bullet(gameRef, map, false, 5, Bullet.LEFT, position);
 	}
 	
 	public void takeDamage(int damage)

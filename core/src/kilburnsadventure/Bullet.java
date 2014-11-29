@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Bullet extends GameObject 
 {
-	public final int LEFT = -1, RIGHT = 1;
+	public static final int LEFT = -1, RIGHT = 1;
 	
 	protected Vector2 position;
 	protected float speed = 3f;
