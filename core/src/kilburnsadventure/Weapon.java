@@ -2,13 +2,15 @@ package kilburnsadventure;
 
 public class Weapon 
 {
-	public static Weapon AK47 = new Weapon(10, 20);
+	public static Weapon AK47 = new Weapon("Ak-47", 10, 20);
+
 	
 	protected String name;
 	protected int damage, rateOfFire, framesSinceShot = 0;
 	
-	public Weapon(int reqDamage, int reqRateOfFire)
+	public Weapon(String reqName, int reqDamage, int reqRateOfFire)
 	{
+		name = reqName;
 		damage = reqDamage;
 		rateOfFire = reqRateOfFire;
 	}
@@ -42,5 +44,10 @@ public class Weapon
 	public int getRateOfFire()
 	{
 		return rateOfFire;
+	}
+	
+	public void fireMultiple()
+	{
+		
 	}
 }

@@ -25,6 +25,7 @@ public class Player extends MapObject{
 	    position = new Vector2(xPosition, yPosition);
 	    playerImage = new Texture("graphics/ballon.png");
 	    
+	    currentHP = maxHP;
 	    weapon = Weapon.AK47;
 	}	
 	
@@ -142,6 +143,10 @@ public class Player extends MapObject{
 		return currentHP;
 	}
 	
+	public int getmaxHP()
+	{
+		return maxHP;
+	}
 	public void setMaxHP()
 	{
 		currentHP = maxHP;
@@ -152,9 +157,31 @@ public class Player extends MapObject{
 		currentHP -= damage;
 	}
 	
+	//functions used in HPItem
 	public void addHP(int reqHP)
 	{
-		currentHP += reqHP;
+		switch (reqHP)
+		{
+		case 0: 
+			{
+				currentHP += 25;
+				if (currentHP > maxHP)
+					setMaxHP();
+				break;
+			}
+		case 1: 
+			{
+				currentHP += 50;
+				if (currentHP > maxHP)
+					setMaxHP();
+				break;
+			}
+		case 2: 
+			{
+				setMaxHP();
+				break;
+			}
+		}
 	}
 	
 	public boolean collides(Vector2 point)
@@ -178,6 +205,11 @@ public class Player extends MapObject{
 	{
 		return score;
 	}//getScore
+	
+	public Weapon getWeapon()
+	{
+		return weapon;
+	}
 	
 	//Score-----------------------------------------------------------------------------------------------------
 }

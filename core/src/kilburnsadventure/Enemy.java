@@ -26,7 +26,7 @@ public class Enemy extends MapObject{
 	@Override
 	public void update()
 	{
-position.x -= speed;
+        position.x -= speed;
 		
 		if (falling)
 		{
@@ -57,7 +57,8 @@ position.x -= speed;
 	@Override
 	public void draw(SpriteBatch spriteBatch)
 	{
-		spriteBatch.draw(graphic,  position.x, position.y);
+		spriteBatch.draw(graphic, position.x, position.y, 0, 0, graphic.getWidth(), graphic.getHeight(),
+		         1, 1, rotation, 0, 0, graphic.getWidth(), graphic.getHeight(), false, false);
 	}
 	
 	public void fire()
@@ -71,7 +72,7 @@ position.x -= speed;
 		
 		if (health <= 0)
 		{
-			map.removeFromObjectList(this);
+			falling = true;
 			map.getPlayer().addScore(scoreOfThisEnemy);
 		}
 	}
