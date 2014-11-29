@@ -166,23 +166,22 @@ public class Player extends MapObject{
 			{
 				currentHP += 25;
 				if (currentHP > maxHP)
-					currentHP = maxHP;
+					setMaxHP();
 				break;
 			}
 		case 1: 
 			{
 				currentHP += 50;
 				if (currentHP > maxHP)
-					currentHP = maxHP;
+					setMaxHP();
 				break;
 			}
 		case 2: 
 			{
-				currentHP = maxHP;
+				setMaxHP();
 				break;
 			}
 		}
-		currentHP += reqHP;
 	}
 	
 	public boolean collides(Vector2 point)
