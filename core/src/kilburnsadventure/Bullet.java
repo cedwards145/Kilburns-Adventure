@@ -33,9 +33,9 @@ public class Bullet extends MapObject
 	{
 		position.x += (speed * direction);
 		
-		List<GameObject> mapObjects = map.getObjectList();
+		List<MapObject> mapObjects = map.getObjectList();
 		
-		for (GameObject object : mapObjects)
+		for (MapObject object : mapObjects)
 		{
 			if (object instanceof Player && !firedByPlayer)
 			{
