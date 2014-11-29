@@ -64,6 +64,7 @@ public class Enemy extends MapObject{
 	public void fire()
 	{
 		Bullet bullet = new Bullet(gameRef, map, false, 5, Bullet.LEFT, position);
+		WeaponSound.AK47.getWeaponSound().play();
 	}
 	
 	public void takeDamage(int damage)

@@ -10,20 +10,14 @@ public class Weapon
 	
 	protected String name;
 	protected int damage, rateOfFire, framesSinceShot = 0;
-	protected Sound weaponSound;
 	
 	public Weapon(String reqName, int reqDamage, int reqRateOfFire, String soundFileName)
 	{
 		name = reqName;
 		damage = reqDamage;
 		rateOfFire = reqRateOfFire;
-		weaponSound = Gdx.audio.newSound(Gdx.files.internal("audio/" + soundFileName));
 	}
 	
-	public Sound getWeaponSound()
-	{
-		return weaponSound;
-	}
 	
 	public boolean canFire()
 	{

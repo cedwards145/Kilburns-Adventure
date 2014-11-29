@@ -124,12 +124,11 @@ public class Player extends MapObject{
 		if (position.y > gameRef.getHeight() - playerImage.getHeight())
 			position.y = gameRef.getHeight() - playerImage.getHeight();
 		
-	
 		// Fire bullet
 		if (weaponTouchIndex != -1 && Gdx.input.isTouched(weaponTouchIndex) && weapon.canFire())
 		{
 			Bullet bullet = new Bullet(gameRef, map, true, weapon.getDamage(), Bullet.RIGHT, position);
-			weapon.getWeaponSound().play();
+			WeaponSound.AK47.getWeaponSound().play();
 		}
 		
 	}
