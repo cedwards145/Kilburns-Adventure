@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class ItemDrop extends MapObject{
 
-	private Vector2 position;
+	protected Vector2 position;
 	//ItemDrop constructor
 	public ItemDrop(Game game, MapState containingMap, float xPosition, float yPosition)
 	{

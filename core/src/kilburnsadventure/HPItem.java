@@ -9,9 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class HPItem extends ItemDrop{
 
-	protected Vector2 position;
-	protected int regSize;
-	protected Texture graphic;
+	private Vector2 position;
+	private int regSize;
+	private Texture graphic;
 	public HPItem(Game game, MapState containingMap, float xPosition, float yPosition, int size)
 	{
 		super(game, containingMap, yPosition, yPosition);
