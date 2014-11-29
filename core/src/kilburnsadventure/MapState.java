@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 
+
 public class MapState extends GameState 
 {
 	// Initialise instance variables
@@ -21,8 +22,12 @@ public class MapState extends GameState
 	private int mapLvl;
 	private int frames = 0, noOfFramesBetween = 0;
 	float xPlayerPosX, xPlayerPosY;
-	private String testDrawNumber;
+	private String displayScore;
+	private String displayHealth;
 	private BitmapFont font;
+	private Texture pbTexture;
+	private Texture pbUpdate;
+	private Texture smallBaloon;
 	
 	public MapState(Game requiredGame, StateManager reqStateManager,
 			            int requiredMapLvl)
@@ -36,14 +41,18 @@ public class MapState extends GameState
 		// Get the map with the chosen level from
 		// the user.
 		map = new Map(game,mapLvl);
+		pbTexture = map.getProgressBar();
+		pbUpdate = map.getProgressBarUpdate();
 		// Get the map texture.
 		initialiseMap = map.getMap();
+		smallBaloon = map.getSmallBaloon();
 		// Create the player.
 		player = new Player(game,this, 0,0);
 		// Add player to the list of objects.
 		objects.add(player);
 		font = new BitmapFont();
-		testDrawNumber = "";
+		displayHealth = "";
+		displayScore = "";
 	}
 	
 	// Accessor Method.
@@ -107,7 +116,8 @@ public class MapState extends GameState
 		// Set camera to follow player's position.
 		gameRef.cameraLookAt(player.getPosition());
 		
-		testDrawNumber = "Score :" + player.getScore();
+		displayScore = "Score :" + player.getScore();
+		displayHealth = "Health :" + player.getCurrentHP();
 		
 		// Spawn enemies.
 		if(frames > noOfFramesBetween)
@@ -149,7 +159,17 @@ public class MapState extends GameState
 	{
 		super.draw(spriteBatch);
 		// Draw map texture
-		spriteBatch.draw(initialiseMap, 0, 0);
+		spriteBatch.draw(initialiseMap,0,0);
+		
+		spriteBatch.draw(pbTexture, gameRef.getCameraPosition().x - 200, 
+				 gameRef.getCameraPosition().y - 220);
+		
+		float calcStretch = player.getPosition().x / map.getSizeOfMapX() * 400;
+		spriteBatch.draw(pbUpdate, gameRef.getCameraPosition().x - 200, 
+										 gameRef.getCameraPosition().y - 220, calcStretch, 10);
+		spriteBatch.draw(smallBaloon, gameRef.getCameraPosition().x - 200,
+											gameRef.getCameraPosition().y - 215);
+		
 		// Iterate through the list of objects and
 		// draw them.
 		for(int object = 0; object < objects.size(); object++)
@@ -157,8 +177,10 @@ public class MapState extends GameState
 			objects.get(object).draw(spriteBatch);
 		}
 		
-		font.draw(spriteBatch, testDrawNumber, 	gameRef.getCameraPosition().x - 400,
+		font.draw(spriteBatch, displayScore, 	gameRef.getCameraPosition().x - 400,
 				      gameRef.getCameraPosition().y + 230);
+		font.draw(spriteBatch, displayHealth, gameRef.getCameraPosition().x + 300,
+							gameRef.getCameraPosition().y + 230);
 	}
 }
 
