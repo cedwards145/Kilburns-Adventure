@@ -15,6 +15,7 @@ public class Enemy extends MapObject{
 	public Enemy(Game game, MapState containingMap, int xPosition, int yPosition)
 	{
 		super(game, containingMap);
+		position = new Vector2(xPosition, yPosition);
 
 		graphic = new Texture("graphics/enemies/dummy.png");
 	}
