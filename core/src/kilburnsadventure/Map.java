@@ -9,6 +9,9 @@ public class Map extends GameObject
 	private int level;
 	private String[] mapBackgrounds;
 	private Texture buildMap;
+	private Texture progressBar;
+	private Texture progressBarUpdate;
+	private Texture smallBaloon;
 	
 	public Map(Game game, int requiredLevel)
 	{
@@ -22,12 +25,31 @@ public class Map extends GameObject
 		mapBackgrounds[1] = "lvl2.jpg";
 		// build the map given the selected level.
 		buildMap = new Texture("graphics/maps/" + mapBackgrounds[level]);
+		progressBar = new Texture("graphics/progressBar.jpg");
+		progressBarUpdate = new Texture("graphics/progressBarUpdate.jpg");
+		smallBaloon = new Texture("graphics/ballonSmall.png");
 	}
 	
 	// Accessor method for texture
 	public Texture getMap()
 	{
 		return buildMap;
+	}
+	
+  //Accessor method for texture
+	public Texture getProgressBar()
+	{
+		return progressBar;
+	}
+	
+	public Texture getProgressBarUpdate()
+	{
+		return progressBarUpdate;
+	}
+	
+	public Texture getSmallBaloon()
+	{
+		return smallBaloon;
 	}
 	
 	// Accessor method for X coordinate
