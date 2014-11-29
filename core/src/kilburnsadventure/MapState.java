@@ -13,6 +13,7 @@ public class MapState extends GameState
 	private int mapID;
 	private List<GameObject> objects = new ArrayList<GameObject>();
 	private String[] mapBackgrounds;
+	private Player player;
 	
 	public MapState(Game game, StateManager stateManager,int requiredMapID)
 	{
@@ -24,7 +25,7 @@ public class MapState extends GameState
 		mapBackgrounds[0] = "lvl1.jpg";
 		mapBackgrounds[1] = "lvl2.jpg";
 		map = new Texture("graphics/maps/" + mapBackgrounds[mapID]);
-		Player player = new Player(game,0,0);
+		player = new Player(game,0,0);
 		objects.add(player);
 	}
 	
@@ -36,6 +37,7 @@ public class MapState extends GameState
 		{
 			objects.get(object).update();
 		}
+		gameRef.cameraLookAt(player.getPlayerPos());
 	}
 	
 	@Override
