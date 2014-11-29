@@ -59,7 +59,7 @@ public class MapState extends GameState
 			{
 				int different = 0;
 				different += i + 50;
-				pilots = new Enemy(game,800,different);
+				pilots = new Enemy(game, this, 800,different);
 				addToObjectList(pilots);
 			}
 		}
