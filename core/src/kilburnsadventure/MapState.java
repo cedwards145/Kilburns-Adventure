@@ -13,6 +13,8 @@ public class MapState extends GameState
 	private int mapID;
 	private List<GameObject> objects = new ArrayList<GameObject>();
 	private String[] mapBackgrounds;
+	private Player player;
+	private Enemy pilots;
 	
 	public MapState(Game game, StateManager stateManager,int requiredMapID)
 	{
@@ -24,8 +26,25 @@ public class MapState extends GameState
 		mapBackgrounds[0] = "lvl1.jpg";
 		mapBackgrounds[1] = "lvl2.jpg";
 		map = new Texture("graphics/maps/" + mapBackgrounds[mapID]);
-		Player player = new Player(game,0,0);
+		player = new Player(game,0,0);
+		pilots = new Enemy(game,600,100);
 		objects.add(player);
+		objects.add(pilots);
+	}
+	
+	public List<GameObject> getObjectList()
+	{
+		return objects;
+	}
+	
+	public boolean addToObjectList(GameObject object)
+	{
+		return objects.add(object);
+	}
+	
+	public boolean removeFromObjectList(GameObject object)
+	{
+		return objects.remove(object);
 	}
 	
 	@Override
@@ -36,6 +55,7 @@ public class MapState extends GameState
 		{
 			objects.get(object).update();
 		}
+		gameRef.cameraLookAt(player.getPlayerPos());
 	}
 	
 	@Override
