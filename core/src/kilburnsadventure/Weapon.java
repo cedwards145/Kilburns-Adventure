@@ -6,21 +6,22 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Weapon 
 {
-	public static Weapon AK47 = new Weapon("Ak-47", 10, 20, "ak47.png");
+	public static Weapon AK47 = new Weapon("Ak-47", 10, 20, "ak47.png", WeaponSound.soundAK47);
 
 	protected Texture graphic;
 	protected String name;
 	protected int damage, rateOfFire, framesSinceShot = 0;
+	protected Sound weaponSound;
 	
-	public Weapon(String reqName, int reqDamage, int reqRateOfFire, String imageFileName)
+	public Weapon(String reqName, int reqDamage, int reqRateOfFire, String imageFileName, Sound reqSound)
 	{
 		name = reqName;
 		damage = reqDamage;
 		rateOfFire = reqRateOfFire;
 		graphic = new Texture("graphics/weapons/" + imageFileName);
+		weaponSound = reqSound;
+		
 	}
-	
-	public static Sound sound47 = Gdx.audio.newSound(Gdx.files.internal("audio/AK47.wav"));
 	
 	public boolean canFire()
 	{
