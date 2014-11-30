@@ -30,7 +30,7 @@ public class Player extends MapObject{
 	    playerImage = new Texture("graphics/ballon.png");
 	    
 	    currentHP = maxHP;
-	    weapon = Weapon.AK47;
+	    weapon = Weapon.Shotgun;
 	    
 	    balloonCollision = new Rectangle(position.x + 3, position.y + 46, 64, 57);
 	    basketCollision = new Rectangle(position.x + 16, position.y, 37, 46);
@@ -160,8 +160,7 @@ public class Player extends MapObject{
 			double angle = Math.atan((double)(difference.y / difference.x));
 			gunRotation = angle;
 			
-			Bullet bullet = new Bullet(gameRef, map, true, weapon.getDamage(), angle, bulletOrigin);
-			weapon.weaponSound.play();
+			weapon.fireBullet(angle, bulletOrigin, gameRef, map);
 		}
 		
 	}
