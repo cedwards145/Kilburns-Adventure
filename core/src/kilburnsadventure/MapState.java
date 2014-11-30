@@ -151,10 +151,10 @@ public class MapState extends GameState
 			frames = 0;
 		}
 		
-		if(framesHealth > noOfFramesBetweenHealth)
+		int num = MathUtils.random(1,3000);
+		if (num == 1)
 		{
 			spawnHealth();
-			framesHealth = 0;
 		}
 		
 		
@@ -193,6 +193,11 @@ public class MapState extends GameState
 		// Clear lists
 		toAdd.clear();
 		toRemove.clear();
+		
+		if(player.getPosition().x == map.getSizeOfMapX())
+		{
+			stateManager.addState(new LevelCompleteState(gameRef, stateManager,this));
+		}
 		
 	}
 	
