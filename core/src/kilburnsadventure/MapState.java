@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.PauseableThread;
 
 
@@ -34,6 +35,7 @@ public class MapState extends GameState
 	private Texture pbUpdate;
 	private Texture smallBaloon;
 	private boolean pushedGameOver = false;
+	private ItemDrop drops;
 	
 	public MapState(Game requiredGame, StateManager reqStateManager,
 			            int requiredMapLvl)
@@ -109,6 +111,13 @@ public class MapState extends GameState
 				addToObjectList(pilots);
 			}
 		}
+	}
+	
+	public void spawnDrops()
+	{
+			Vector2 position = new Vector2(400, 10);
+			drops = new HPItem(game, this,position, 20);
+			addToObjectList(drops);
 	}
 	
 	@Override
