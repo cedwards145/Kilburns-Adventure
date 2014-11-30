@@ -6,8 +6,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class AmmoDrop extends ItemDrop{
-	
-	private Vector2 position; //position
 	private Weapon weapon;
 	private int numberBullets;
 	
