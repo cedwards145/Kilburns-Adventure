@@ -96,7 +96,7 @@ public class MapState extends GameState
 				xOffset = MathUtils.random(600,1500);
 				// Create enemies
 				Enemy pilots = new Enemy(game, this, xOffset + xPlayerPosX, 
-						                     MathUtils.random(50,400));
+						                     MathUtils.random(120,400));
 				addToObjectList(pilots);
 			}
 		}
@@ -126,7 +126,7 @@ public class MapState extends GameState
 		// Spawn enemies.
 		if(frames > noOfFramesBetween)
 		{
-			spawnEnemies(5);
+			spawnEnemies(3);
 			frames = 0;
 		}
 		
