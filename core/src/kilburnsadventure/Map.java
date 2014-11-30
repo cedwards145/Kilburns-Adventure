@@ -41,7 +41,7 @@ public class Map extends GameObject
 				array[i][3] = (int) (600 * Math.pow(1.36, i)); // AmmoChanceDrop
 				array[i][4] = (int) (300 * Math.pow(0.95, i)); // EnemyFrequency
 				array[i][5] = (int) (3 * Math.pow(1.36, i)); // Ammo size
-				array[i][6] = (int) (3 * Math.pow(1.6, i)); // Enemy size
+				array[i][6] = (int) (3 * Math.pow(1.4, i)); // Enemy size
 		}
 		
 		return array;
