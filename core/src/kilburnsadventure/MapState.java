@@ -36,7 +36,7 @@ public class MapState extends GameState
 	private Texture pbUpdate;
 	private Texture smallBaloon;
 	private boolean pushedGameOver = false;
-	private ItemDrop drops;
+	private ItemDrop drops, drops2;
 	
 	public MapState(Game requiredGame, StateManager reqStateManager,
 			            int requiredMapLvl)
@@ -115,14 +115,11 @@ public class MapState extends GameState
 		}
 	}
 	
-	public void spawnDrops()
+	public void spawnHealth()
 	{
-		if (xPlayerPosX > 700)
-		{
-			Vector2 position = new Vector2(1200, 480);
-			drops = new HPItem(game, this,position, 50);
-			addToObjectList(drops);
-		}
+		Vector2 position = new Vector2(xPlayerPosX + 400, 480);
+		drops = new HPItem(game, this, position, 50);
+		addToObjectList(drops);
 	}
 	
 	@Override
@@ -156,7 +153,7 @@ public class MapState extends GameState
 		
 		if(framesHealth > noOfFramesBetweenHealth)
 		{
-			spawnDrops();
+			spawnHealth();
 			framesHealth = 0;
 		}
 		
