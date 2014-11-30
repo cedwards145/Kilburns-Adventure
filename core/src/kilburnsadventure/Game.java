@@ -132,4 +132,9 @@ public class Game extends ApplicationAdapter {
 		shakeDuration = duration;
 		cameraShaking = true;
 	}
+	
+	public void resetCamera()
+	{
+		camera.position.set(width / 2, height / 2, 0);
+	}
 }

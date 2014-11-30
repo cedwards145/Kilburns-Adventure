@@ -85,27 +85,31 @@ public class Player extends MapObject{
 				weaponTouchIndex = 1;
 		}
 		
-		if (movementTouchIndex != -1 && Gdx.input.isTouched(movementTouchIndex))
+		
+		if (currentHP > 0)
 		{
-			Vector3 touchPosition3 = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(movementTouchIndex), Gdx.input.getY(movementTouchIndex), 0));
-			Vector2 touchPosition = new Vector2(touchPosition3.x, touchPosition3.y);
-			
-			//If key is pressed
-			leftMove = Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)
-					||ControlPanel.leftIsTouched(touchPosition);
-			rightMove = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)
-					||ControlPanel.rightIsTouched(touchPosition);
-			upMove = Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)
-					||ControlPanel.upIsTouched(touchPosition);
-			downMove = Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)
-					||ControlPanel.downIsTouched(touchPosition);
-		}
-		else
-		{
-			leftMove = Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A);
-			rightMove = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D);
-			upMove = Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W);
-			downMove = Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S);
+			if (movementTouchIndex != -1 && Gdx.input.isTouched(movementTouchIndex))
+			{
+				Vector3 touchPosition3 = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(movementTouchIndex), Gdx.input.getY(movementTouchIndex), 0));
+				Vector2 touchPosition = new Vector2(touchPosition3.x, touchPosition3.y);
+				
+				//If key is pressed
+				leftMove = Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)
+						||ControlPanel.leftIsTouched(touchPosition);
+				rightMove = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)
+						||ControlPanel.rightIsTouched(touchPosition);
+				upMove = Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)
+						||ControlPanel.upIsTouched(touchPosition);
+				downMove = Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)
+						||ControlPanel.downIsTouched(touchPosition);
+			}
+			else
+			{
+				leftMove = Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A);
+				rightMove = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D);
+				upMove = Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W);
+				downMove = Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S);
+			}
 		}
 		/*--------move the player---------*/
 		
@@ -119,55 +123,60 @@ public class Player extends MapObject{
 		
 		//if (rightMove)
 		position.x += xSpeed;
+		if (currentHP <= 0)
+			position.y--;
 		
-		if (upMove)
+		if (currentHP > 0)
 		{
-			position.y += ySpeed;
+			if (upMove)
+			{
+				position.y += ySpeed;
+			}
+			
+			if (downMove)
+			{
+				position.y -= ySpeed;
+			}
+			
+			/*-------------make sure player does not run out of bound-----------*/
+			if (position.x < 0)
+				position.x = 0;
+			if (position.y < 0)
+				position.y = 0;
+			//if (playerPos.x > 650)
+				//playerPos.x = 650;
+			if (position.y > gameRef.getHeight() - playerImage.getHeight())
+				position.y = gameRef.getHeight() - playerImage.getHeight();
+			
+			// Adjust collision positions
+			balloonCollision.x = position.x + 3;
+		    balloonCollision.y = position.y + 46;
+		    basketCollision.x = position.x + 16;
+		    basketCollision.y = position.y;
+			
+			/*---------------------------------*/
+			
+			// Fire bullet
+			if (weaponTouchIndex != -1 && Gdx.input.isTouched(weaponTouchIndex) && weapon.canFire())
+			{
+				float gunLength = weapon.getImage().getWidth();
+				
+				Vector3 touchPosition3 = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(weaponTouchIndex), 
+						                                                           Gdx.input.getY(weaponTouchIndex), 0));
+				Vector2 touchPosition = new Vector2(touchPosition3.x, touchPosition3.y);
+				
+				Vector2 difference = new Vector2(position.x + 50 - touchPosition.x,
+						                         position.y + 25 - touchPosition.y);
+				
+				Vector2 bulletOrigin = new Vector2(position.x + 50 + (float)Math.cos(gunRotation) * gunLength, 
+						                           position.y + 25 + (float)Math.sin(gunRotation) * gunLength);
+				
+				double angle = Math.atan((double)(difference.y / difference.x));
+				gunRotation = angle;
+				
+				weapon.fireBullet(angle, bulletOrigin, gameRef, map);
+			}
 		}
-		
-		if (downMove)
-		{
-			position.y -= ySpeed;
-		}
-		/*---------------------------------*/
-		
-		/*-------------make sure player does not run out of bound-----------*/
-		if (position.x < 0)
-			position.x = 0;
-		if (position.y < 0)
-			position.y = 0;
-		//if (playerPos.x > 650)
-			//playerPos.x = 650;
-		if (position.y > gameRef.getHeight() - playerImage.getHeight())
-			position.y = gameRef.getHeight() - playerImage.getHeight();
-		
-		// Adjust collision positions
-		balloonCollision.x = position.x + 3;
-	    balloonCollision.y = position.y + 46;
-	    basketCollision.x = position.x + 16;
-	    basketCollision.y = position.y;
-		
-		// Fire bullet
-		if (weaponTouchIndex != -1 && Gdx.input.isTouched(weaponTouchIndex) && weapon.canFire())
-		{
-			float gunLength = weapon.getImage().getWidth();
-			
-			Vector3 touchPosition3 = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(weaponTouchIndex), 
-					                                                           Gdx.input.getY(weaponTouchIndex), 0));
-			Vector2 touchPosition = new Vector2(touchPosition3.x, touchPosition3.y);
-			
-			Vector2 difference = new Vector2(position.x + 50 - touchPosition.x,
-					                         position.y + 25 - touchPosition.y);
-			
-			Vector2 bulletOrigin = new Vector2(position.x + 50 + (float)Math.cos(gunRotation) * gunLength, 
-					                           position.y + 25 + (float)Math.sin(gunRotation) * gunLength);
-			
-			double angle = Math.atan((double)(difference.y / difference.x));
-			gunRotation = angle;
-			
-			weapon.fireBullet(angle, bulletOrigin, gameRef, map);
-		}
-		
 	}
 	/*-------------------------------------------------------------------*/
 	
@@ -196,6 +205,12 @@ public class Player extends MapObject{
 			currentHP -= damage;
 			Gdx.input.vibrate(100);
 			gameRef.shakeCamera(2, 10);
+		}
+		
+		if (currentHP <= 0)
+		{
+			map.addToObjectList(new Explosion(gameRef, map, new Vector2(position.x - 28, position.y + 24)));
+			playerImage = new Texture("graphics/backet.png");
 		}
 	}
 	
@@ -226,13 +241,13 @@ public class Player extends MapObject{
 	
 	public boolean collides(Vector2 point)
 	{
-		return balloonCollision.contains(point) || basketCollision.contains(point);
+		return currentHP > 0 && (balloonCollision.contains(point) || basketCollision.contains(point));
 	}
 	
 	public boolean intersects(Rectangle box)
 	{
-		return Intersector.overlaps(balloonCollision, box) 
-				|| Intersector.overlaps(basketCollision, box);
+		return currentHP > 0 && (Intersector.overlaps(balloonCollision, box) 
+				                 || Intersector.overlaps(basketCollision, box));
 	}
 	
 	//Score-----------------------------------------------------------------------------------------------------

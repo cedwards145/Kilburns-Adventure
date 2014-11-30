@@ -30,6 +30,7 @@ public class MapState extends GameState
 	private Texture pbTexture;
 	private Texture pbUpdate;
 	private Texture smallBaloon;
+	private boolean pushedGameOver = false;
 	
 	public MapState(Game requiredGame, StateManager reqStateManager,
 			            int requiredMapLvl)
@@ -135,6 +136,12 @@ public class MapState extends GameState
 			frames = 0;
 		}
 		
+		if(player.getCurrentHP() <=  0 && !pushedGameOver)
+		{
+			pushedGameOver = true;
+			stateManager.addState(new GameOverState(gameRef, stateManager, this));
+		}
+		
 		// Iterate through the toAdd list.
 		for(int index = 0; index < toAdd.size(); index++)
 		{
@@ -210,11 +217,6 @@ public class MapState extends GameState
 							gameRef.getCameraPosition().y + 230);
 		
 		ControlPanel.drawJoystick(spriteBatch, player.movingUp(), player.movingDown());
-		
-		if(player.getCurrentHP() <=  0)
-		{
-			stateManager.addState(new GameOverState(gameRef, stateManager, this));
-		}
 	}
 }
 
