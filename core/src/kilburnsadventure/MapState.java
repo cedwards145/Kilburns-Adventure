@@ -165,6 +165,8 @@ public class MapState extends GameState
 		// Draw map texture
 		spriteBatch.draw(initialiseMap,0,0);
 		
+		spriteBatch.draw(weaponImage, gameRef.getCameraPosition().x - 300,
+										 gameRef.getCameraPosition().y + 210);
 		// Draw the progress bar image
 		spriteBatch.draw(pbTexture, gameRef.getCameraPosition().x - 200, 
 				 gameRef.getCameraPosition().y - 220);
