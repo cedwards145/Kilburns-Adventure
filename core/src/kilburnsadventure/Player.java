@@ -238,7 +238,7 @@ public class Player extends MapObject{
 	private void updateShield()
 	{
 		shieldTimer++;
-		if(shieldTimer > 600)
+		if(shieldTimer > 300)
 		{
 			haveShield = false;
 		}
