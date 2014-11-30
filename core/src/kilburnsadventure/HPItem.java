@@ -24,6 +24,7 @@ public class HPItem extends ItemDrop{
 	@Override
 	public void update()
 	{
+		position.y --;
 		Player player = map.getPlayer();
 		if (player.intersects(new Rectangle(position.x, position.y, graphic.getWidth(), graphic.getHeight())))
 		{
@@ -36,16 +37,5 @@ public class HPItem extends ItemDrop{
 	public void draw(SpriteBatch spriteBatch)
 	{
 		
-	}
-	
-	public boolean collides(Vector2 point)
-	{
-		Rectangle collisionBox = new Rectangle(position.x, position.y, graphic.getWidth(), graphic.getHeight());
-		return collisionBox.contains(point);
-	}
-	
-	public Rectangle getCollisionBox()
-	{
-		return new Rectangle(position.x, position.y, graphic.getWidth(), graphic.getHeight());
 	}
 }
