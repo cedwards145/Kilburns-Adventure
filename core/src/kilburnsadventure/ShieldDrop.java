@@ -12,11 +12,10 @@ public class ShieldDrop extends ItemDrop{
 	private Texture graphic; //path the graph is stored
 	
 	//constructor
-	public ShieldDrop(Game game, MapState containingMap, Vector2 reqPosition, int size)
+	public ShieldDrop(Game game, MapState containingMap, Vector2 reqPosition)
 	{
 		super(game, containingMap, reqPosition);
 		position = reqPosition;
-		regSize = size;
 		graphic = new Texture("graphics/ballon.png");
 		
 	}

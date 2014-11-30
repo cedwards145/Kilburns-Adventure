@@ -19,6 +19,8 @@ public class Player extends MapObject{
 	protected int movementTouchIndex, weaponTouchIndex;
 	protected boolean leftMove = false, rightMove = false, upMove = false, downMove = false;
 	protected double gunRotation = 0;
+	private boolean haveShield; //if balloon has the shield
+	private int shieldTimer; //keep track of time of shield
 	
 	//player constructor
 	public Player(Game game, MapState containingMap, int xPosition, int yPosition)
@@ -39,6 +41,8 @@ public class Player extends MapObject{
 	{
 		updateMotion();
 		weapon.update();
+		if (haveShield)
+			updateShield();
 	}
 	
 	@Override
@@ -184,35 +188,36 @@ public class Player extends MapObject{
 	
 	public void takeDamage(int damage)
 	{
-		currentHP -= damage;
-		Gdx.input.vibrate(100);
-		gameRef.shakeCamera(2, 10);
+		if(!haveShield)
+		{
+			currentHP -= damage;
+			Gdx.input.vibrate(100);
+			gameRef.shakeCamera(2, 10);
+		}
 	}
 	
 	//functions used in HPItem
 	public void addHP(int reqHP)
 	{
-		switch (reqHP)
+		currentHP += reqHP;
+		if (currentHP > maxHP)
+			setMaxHP();
+	}
+	
+	//function of shield
+	public void haveShield()
+	{
+		haveShield = true;
+		shieldTimer = 0;
+	}
+	
+	private void updateShield()
+	{
+		shieldTimer++;
+		if(shieldTimer > 300)
 		{
-		case 0: 
-			{
-				currentHP += 25;
-				if (currentHP > maxHP)
-					setMaxHP();
-				break;
-			}
-		case 1: 
-			{
-				currentHP += 50;
-				if (currentHP > maxHP)
-					setMaxHP();
-				break;
-			}
-		case 2: 
-			{
-				setMaxHP();
-				break;
-			}
+			haveShield = false;
+			shieldTimer = 0;
 		}
 	}
 	
