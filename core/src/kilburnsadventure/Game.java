@@ -107,6 +107,8 @@ public class Game extends ApplicationAdapter {
 		float x = position.x + 300;
 		if (x < width / 2)
 			x = width / 2;
+		else if (x > 3200)
+			x = 3200;
 		
 		float y = position.y;
 		

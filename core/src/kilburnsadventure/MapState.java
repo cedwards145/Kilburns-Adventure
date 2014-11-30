@@ -252,7 +252,10 @@ public class MapState extends GameState
 	
 	private void drawWeapons(SpriteBatch spriteBatch)
 	{
-		//spriteBatch.draw()
+		spriteBatch.draw(Weapon.AK47.getImage(), gameRef.getCameraPosition().x - 200, 460);
+		font.draw(spriteBatch, "--/--", gameRef.getCameraPosition().x - 180, 460);
+		spriteBatch.draw(Weapon.Shotgun.getImage(), gameRef.getCameraPosition().x - 100, 460);
+		font.draw(spriteBatch, Weapon.Shotgun.getAmmo() + "/" + Weapon.Shotgun.getMaxAmmo(), gameRef.getCameraPosition().x - 80, 460);
 	}
 }
 

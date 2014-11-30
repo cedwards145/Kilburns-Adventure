@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 public class ControlPanel
 {
 	private static Rectangle upButton = new Rectangle(0, 75, 150, 75), downButton = new Rectangle(0, 0, 150, 75);
+	private static Rectangle shotgunSelect = new Rectangle(265, 460, 100, 20), akSelect = new Rectangle(165, 460, 100, 20);
+
 	protected static Texture joystick;	
 	
 	public static void init(Game game)
@@ -18,6 +20,9 @@ public class ControlPanel
 	{
 		upButton.x = game.getCameraPosition().x - game.getWidth() / 2;
 		downButton.x = upButton.x;
+		
+		akSelect.x = upButton.x + 165;
+		shotgunSelect.x = upButton.x + 265;
 	}
 	
 	public static void drawJoystick(SpriteBatch spriteBatch, boolean movingUp, boolean movingDown)
@@ -27,6 +32,16 @@ public class ControlPanel
 			spriteBatch.draw(joystick, upButton.x + 50, upButton.y);
 		else if (movingDown)
 			spriteBatch.draw(joystick, upButton.x + 50, upButton.y - 50);
+	}
+	
+	public static boolean shotgunSelected(Vector2 position)
+	{
+		return shotgunSelect.contains(position.x, position.y);
+	}
+	
+	public static boolean akSelected(Vector2 position)
+	{
+		return akSelect.contains(position.x, position.y);
 	}
 	
 	public static boolean leftIsTouched(Vector2 position)

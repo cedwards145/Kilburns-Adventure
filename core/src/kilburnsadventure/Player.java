@@ -162,7 +162,7 @@ public class Player extends MapObject{
 			/*---------------------------------*/
 			
 			// Fire bullet
-			if (weaponTouchIndex != -1 && Gdx.input.isTouched(weaponTouchIndex) && weapon.canFire())
+			if (weaponTouchIndex != -1 && Gdx.input.isTouched(weaponTouchIndex))
 			{
 				float gunLength = weapon.getImage().getWidth();
 				
@@ -170,16 +170,27 @@ public class Player extends MapObject{
 						                                                           Gdx.input.getY(weaponTouchIndex), 0));
 				Vector2 touchPosition = new Vector2(touchPosition3.x, touchPosition3.y);
 				
-				Vector2 difference = new Vector2(position.x + 50 - touchPosition.x,
-						                         position.y + 25 - touchPosition.y);
-				
-				Vector2 bulletOrigin = new Vector2(position.x + 50 + (float)Math.cos(gunRotation) * gunLength, 
-						                           position.y + 25 + (float)Math.sin(gunRotation) * gunLength);
-				
-				double angle = Math.atan((double)(difference.y / difference.x));
-				gunRotation = angle;
-				
-				weapon.fireBullet(angle, bulletOrigin, gameRef, map);
+				if (ControlPanel.akSelected(touchPosition))
+				{
+					weapon = Weapon.AK47;
+				}
+				else if (ControlPanel.shotgunSelected(touchPosition))
+				{
+					weapon = Weapon.Shotgun;
+				}
+				else if (weapon.canFire())
+				{
+					Vector2 difference = new Vector2(position.x + 50 - touchPosition.x,
+							                         position.y + 25 - touchPosition.y);
+					
+					Vector2 bulletOrigin = new Vector2(position.x + 50 + (float)Math.cos(gunRotation) * gunLength, 
+							                           position.y + 25 + (float)Math.sin(gunRotation) * gunLength);
+					
+					double angle = Math.atan((double)(difference.y / difference.x));
+					gunRotation = angle;
+					
+					weapon.fireBullet(angle, bulletOrigin, gameRef, map);
+				}
 			}
 		}
 	}

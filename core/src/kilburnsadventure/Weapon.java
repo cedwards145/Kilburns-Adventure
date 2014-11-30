@@ -11,7 +11,7 @@ public class Weapon
 	public enum FireMode { single, spread, missile };
 	
 	public static Weapon AK47 = new Weapon("Ak-47", FireMode.single, 10, 20, -1, "ak47.png", GameSound.soundAK47);
-	public static Weapon Shotgun = new Weapon("Shotgun", FireMode.spread, 4, 40, 30, "ak47.png", GameSound.soundAK47);
+	public static Weapon Shotgun = new Weapon("Shotgun", FireMode.spread, 7, 40, 30, "shotgun.png", GameSound.soundAK47);
 	public static Weapon MissileLauncher = new Weapon("Missile Launcher", FireMode.missile, 1000, 180, 3, "ak47.png", GameSound.soundAK47);
 
 	protected Texture graphic;
@@ -68,6 +68,7 @@ public class Weapon
 				}
 			}
 		}
+		ammo--;
 		weaponSound.play();
 	}
 	
@@ -100,5 +101,13 @@ public class Weapon
 		ammo += value;
 		if (ammo > maxAmmo)
 			ammo = maxAmmo;
+	}
+	public int getAmmo()
+	{
+		return ammo;
+	}
+	public int getMaxAmmo()
+	{
+		return maxAmmo;
 	}
 }
