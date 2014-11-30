@@ -9,13 +9,11 @@ public class HPItem extends ItemDrop{
 
 	private Vector2 position;
 	private int regSize;
-	private Texture graphic;
 	public HPItem(Game game, MapState containingMap, Vector2 reqPosition, int size)
 	{
-		super(game, containingMap, reqPosition);
+		super(game, containingMap, reqPosition, "dropHeart.png");
 		position = reqPosition;
 		regSize = size;
-		graphic = new Texture("graphics/drops/dropHeart.png");
 		
 	}
 	
@@ -24,16 +22,11 @@ public class HPItem extends ItemDrop{
 	{
 		position.y --;
 		Player player = map.getPlayer();
-		if (player.intersects(new Rectangle(position.x, position.y, graphic.getWidth(), graphic.getHeight())))
+		if (player.intersects(new Rectangle(position.x, position.y, texture.getWidth(), texture.getHeight())))
 		{
 			player.addHP(regSize);
 			map.removeFromObjectList(this);
 		}
 	}
 	
-	@Override
-	public void draw(SpriteBatch spriteBatch)
-	{
-		
-	}
 }
