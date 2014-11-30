@@ -165,11 +165,22 @@ public class MapState extends GameState
 				 gameRef.getCameraPosition().y - 220);
 		
 		float calcStretch = player.getPosition().x / map.getSizeOfMapX() * 400;
+		
 		spriteBatch.draw(pbUpdate, gameRef.getCameraPosition().x - 200, 
 										 gameRef.getCameraPosition().y - 220, calcStretch, 10);
-		spriteBatch.draw(smallBaloon, gameRef.getCameraPosition().x - 200,
-											gameRef.getCameraPosition().y - 215);
 		
+		float var = 100 + calcStretch + 80;
+		float var2 = player.getPosition().x + calcStretch + 80;
+		if (player.getPosition().x < 100)
+		{
+		spriteBatch.draw(smallBaloon,  var,
+											gameRef.getCameraPosition().y - 215);
+		}
+		else
+		{
+			spriteBatch.draw(smallBaloon, var2 ,
+					gameRef.getCameraPosition().y - 215);
+		}
 		// Iterate through the list of objects and
 		// draw them.
 		for(int object = 0; object < objects.size(); object++)
