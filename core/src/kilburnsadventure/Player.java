@@ -189,6 +189,7 @@ public class Player extends MapObject{
 	{
 		currentHP -= damage;
 		Gdx.input.vibrate(100);
+		gameRef.shakeCamera(2, 10);
 	}
 	
 	//functions used in HPItem
