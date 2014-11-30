@@ -51,6 +51,9 @@ public class PauseState extends GameState{
 				
 			Vector3 touchPoint = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
 			
+			touchPoint.x -= (gameRef.getCameraPosition().x - gameRef.getWidth() / 2);
+			touchPoint.y -= (gameRef.getCameraPosition().y - gameRef.getHeight() / 2);
+			
 			//resume
 			if(resumeButton.contains(touchPoint.x, touchPoint.y))
 			{
