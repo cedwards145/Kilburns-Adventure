@@ -214,7 +214,7 @@ public class MapState extends GameState
 		
 		if(player.getCurrentHP() <=  0)
 		{
-			stateManager.addState(new GameOverState(gameRef, StateManager this));
+			stateManager.addState(new GameOverState(gameRef, stateManager, this));
 		}
 	}
 }
