@@ -2,20 +2,22 @@ package kilburnsadventure;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 
 public class Weapon 
 {
-	public static Weapon AK47 = new Weapon("Ak-47", 10, 20, "AK47.wav");
+	public static Weapon AK47 = new Weapon("Ak-47", 10, 20, "AK-47.png", "AK47.wav");
 
-	
+	protected Texture graphic;
 	protected String name;
 	protected int damage, rateOfFire, framesSinceShot = 0;
 	
-	public Weapon(String reqName, int reqDamage, int reqRateOfFire, String soundFileName)
+	public Weapon(String reqName, int reqDamage, int reqRateOfFire, String imageFileName, String soundFileName)
 	{
 		name = reqName;
 		damage = reqDamage;
 		rateOfFire = reqRateOfFire;
+		graphic = new Texture("graphics/weapons/" + imageFileName);
 	}
 	
 	
@@ -49,7 +51,10 @@ public class Weapon
 	{
 		return rateOfFire;
 	}
-	
+	public Texture getImage()
+	{
+		return graphic;
+	}
 	public void fireMultiple()
 	{
 		
