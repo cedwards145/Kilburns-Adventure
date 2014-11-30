@@ -9,14 +9,12 @@ public class ShieldDrop extends ItemDrop{
 
 	private Vector2 position; //position
 	private int regSize;  //size of drop
-	private Texture graphic; //path the graph is stored
 	
 	//constructor
 	public ShieldDrop(Game game, MapState containingMap, Vector2 reqPosition)
 	{
-		super(game, containingMap, reqPosition);
+		super(game, containingMap, reqPosition, "dropShield.png");
 		position = reqPosition;
-		graphic = new Texture("graphics/drops/dropShield.png");
 		
 	}
 	
@@ -25,16 +23,11 @@ public class ShieldDrop extends ItemDrop{
 	{
 		position.y --;
 		Player player = map.getPlayer();
-		if (player.intersects(new Rectangle(position.x, position.y, graphic.getWidth(), graphic.getHeight())))
+		if (player.intersects(new Rectangle(position.x, position.y, texture.getWidth(), texture.getHeight())))
 		{
 			player.setShield();
 			map.removeFromObjectList(this);
 		}
 	}
 	
-	@Override
-	public void draw(SpriteBatch spriteBatch)
-	{
-		
-	}	
 }
