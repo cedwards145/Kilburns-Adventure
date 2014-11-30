@@ -11,15 +11,16 @@ public class Weapon
 {
 	public enum FireMode { single, spread, missile };
 	
-	public static Weapon AK47 = new Weapon("Ak-47", FireMode.single, 10, 20, "ak47.png", WeaponSound.soundAK47);
-	public static Weapon Shotgun = new Weapon("Shotgun", FireMode.spread, 4, 40, "ak47.png", WeaponSound.soundAK47);
-	public static Weapon MissileLauncher = new Weapon("Missile Launcher", FireMode.missile, 1000, 180, "ak47.png", WeaponSound.soundAK47);
+	public static Weapon AK47 = new Weapon("Ak-47", FireMode.single, 10, 20, "ak47.png", GameSound.soundAK47);
+	public static Weapon Shotgun = new Weapon("Shotgun", FireMode.spread, 4, 40, "ak47.png", GameSound.soundAK47);
+	public static Weapon MissileLauncher = new Weapon("Missile Launcher", FireMode.missile, 1000, 180, "ak47.png", GameSound.soundAK47);
 
 	protected Texture graphic;
 	protected String name;
 	protected int damage, rateOfFire, framesSinceShot = 0;
 	protected Sound weaponSound;
 	protected FireMode fireMode;
+	protected int ammo;
 	
 	public Weapon(String reqName, FireMode mode, int reqDamage, int reqRateOfFire, String imageFileName, Sound reqSound)
 	{
@@ -84,5 +85,10 @@ public class Weapon
 	public Texture getImage()
 	{
 		return graphic;
+	}
+	
+	public void ammoDec()
+	{
+		ammo --;
 	}
 }
