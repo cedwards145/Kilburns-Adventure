@@ -161,25 +161,30 @@ public class MapState extends GameState
 		// Draw map texture
 		spriteBatch.draw(initialiseMap,0,0);
 		
+		// Draw the progress bar image
 		spriteBatch.draw(pbTexture, gameRef.getCameraPosition().x - 200, 
 				 gameRef.getCameraPosition().y - 220);
 		
+		// Calculate the stretch for the green update on the progress
+		// bar.
 		float calcStretch = player.getPosition().x / map.getSizeOfMapX() * 400;
 		
+		// Draw the green update on the progress bar.
 		spriteBatch.draw(pbUpdate, gameRef.getCameraPosition().x - 200, 
 										 gameRef.getCameraPosition().y - 220, calcStretch, 10);
 		
-		float var = 100 + calcStretch + 80;
-		float var2 = player.getPosition().x + calcStretch + 80;
+		// Draw small baloon on progress bar
+		float calSBBeforeCamera = 180 + calcStretch;
+		float calSBWhileCamera = player.getPosition().x + calcStretch + 80;
 		if (player.getPosition().x < 100)
 		{
-		spriteBatch.draw(smallBaloon,  var,
-											gameRef.getCameraPosition().y - 215);
+			spriteBatch.draw(smallBaloon,  calSBBeforeCamera,
+											 gameRef.getCameraPosition().y - 215);
 		}
 		else
 		{
-			spriteBatch.draw(smallBaloon, var2 ,
-					gameRef.getCameraPosition().y - 215);
+			spriteBatch.draw(smallBaloon, calSBWhileCamera ,
+											 gameRef.getCameraPosition().y - 215);
 		}
 		// Iterate through the list of objects and
 		// draw them.
