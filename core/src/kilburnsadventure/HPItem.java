@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class HPItem extends ItemDrop{
 
-	private Vector2 position;
 	private int regSize;
 	public HPItem(Game game, MapState containingMap, Vector2 reqPosition, int size)
 	{

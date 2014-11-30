@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class ItemDrop extends MapObject{
 
-	protected Vector2 position;
 	protected Texture texture;
 	//ItemDrop constructor
 	public ItemDrop(Game game, MapState containingMap, Vector2 reqPosition, String reqTexture)

@@ -24,7 +24,8 @@ public class MapState extends GameState
 	private Map map;
 	private Game game;
 	private int mapLvl;
-	private int frames = 0, noOfFramesBetween = 0;
+	private int frames = 0, noOfFramesBetween = 0,
+			        noOfFramesBetweenHealth = 0, framesHealth = 0;
 	float xPlayerPosX, xPlayerPosY;
 	private String displayScore;
 	private String displayHealth;
@@ -46,6 +47,7 @@ public class MapState extends GameState
 		game = requiredGame;
 		// Used in spawn method.
 		noOfFramesBetween = 300;
+		noOfFramesBetweenHealth = 1000;
 		// Get the map with the chosen level from
 		// the user.
 		map = new Map(game,mapLvl);
@@ -115,9 +117,12 @@ public class MapState extends GameState
 	
 	public void spawnDrops()
 	{
-			Vector2 position = new Vector2(400, 10);
-			drops = new HPItem(game, this,position, 20);
+		if (xPlayerPosX > 700)
+		{
+			Vector2 position = new Vector2(1200, 480);
+			drops = new HPItem(game, this,position, 50);
 			addToObjectList(drops);
+		}
 	}
 	
 	@Override
@@ -126,6 +131,7 @@ public class MapState extends GameState
 		super.update();
 		// Increment frames
 		frames++;
+		framesHealth++;
 		// Get the players position.
 		xPlayerPosX = player.getPosition().x;
 		xPlayerPosY = player.getPosition().y;
@@ -148,6 +154,13 @@ public class MapState extends GameState
 			frames = 0;
 		}
 		
+		if(framesHealth > noOfFramesBetweenHealth)
+		{
+			spawnDrops();
+			framesHealth = 0;
+		}
+		
+		
 		if(player.getCurrentHP() <=  0 && !pushedGameOver)
 		{
 			pushedGameOver = true;
@@ -169,7 +182,8 @@ public class MapState extends GameState
 		// objects from Map after the player has passed
 		for(int index = 0; index < objects.size(); index++)
 		{
-			if(objects.get(index).getPosition().x < xPlayerPosX - 600)
+			if(objects.get(index) != null && 
+				 objects.get(index).getPosition().x < xPlayerPosX - 600)
 				removeFromObjectList(objects.get(index));
 		}
 		
