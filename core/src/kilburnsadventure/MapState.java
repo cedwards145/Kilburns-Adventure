@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.PauseableThread;
 
 
 public class MapState extends GameState 
@@ -20,66 +19,51 @@ public class MapState extends GameState
 	private List<MapObject> toAdd = new ArrayList<MapObject>();
 	private List<MapObject> toRemove = new ArrayList<MapObject>();
 	private Player player;
-	private Texture initialiseMap;
 	private Map map;
 	private Game game;
 	private int mapLvl;
-	private int frames = 0, noOfFramesBetween = 0,
-			        noOfFramesBetweenHealth = 0, framesHealth = 0;
+	private int frames = 0, noOfFramesBetween = 0;
 	float xPlayerPosX, xPlayerPosY;
-	private String displayScore;
-	private String displayHealth;
+	private String displayScore = "", displayHealth = "";
 	private BitmapFont font;
 	private Weapon weapon;
-	private Texture weaponImage;
-	private Texture pbTexture;
-	private Texture pbUpdate;
-	private Texture smallBaloon;
+	private Texture initialiseMap, weaponImage, pbTexture,
+									pbUpdate, smallBaloon;
 	private boolean pushedGameOver = false;
-	private ItemDrop drops, drops2;
+	private ItemDrop drops;
+	private Integer[][] array;
 	
 	public MapState(Game requiredGame, StateManager reqStateManager,
 			            int requiredMapLvl)
 	{
 		super(requiredGame, reqStateManager);
-		// Get the values from constructor.
 		mapLvl = requiredMapLvl;
 		game = requiredGame;
-		// Used in spawn method.
-		noOfFramesBetween = 300;
-		noOfFramesBetweenHealth = 1000;
-		// Get the map with the chosen level from
-		// the user.
 		map = new Map(game,mapLvl);
+		player = new Player(game,this, 0,0);
+		font = new BitmapFont();
+		array = map.getArray();
+		noOfFramesBetween = array[mapLvl][4];
 		pbTexture = map.getProgressBar();
 		pbUpdate = map.getProgressBarUpdate();
-		// Get the map texture.
-		initialiseMap = map.getMap();
-		smallBaloon = map.getSmallBaloon();
-		// Create the player.
-		player = new Player(game,this, 0,0);
 		weapon = player.getWeapon();
 		weaponImage = weapon.getImage();
+		initialiseMap = map.getMap();
+		smallBaloon = map.getSmallBaloon();
 		// Add player to the list of objects.
 		objects.add(player);
-		font = new BitmapFont();
-		displayHealth = "";
-		displayScore = "";
 	}
 	
-	// Accessor Method.
 	public List<MapObject> getObjectList()
 	{
 		return objects;
 	}
 	
-	// Add object to toAdd list.
 	public boolean addToObjectList(MapObject object)
 	{
 		return toAdd.add(object);
 	}
 	
-	// Remove from toRemove list.
 	public boolean removeFromObjectList(MapObject object)
 	{
 		return toRemove.add(object);
@@ -95,19 +79,15 @@ public class MapState extends GameState
 		return mapLvl;
 	}
 	
-	// Spawn enemies on map
 	public void spawnEnemies(int noOfEnemies)
 	{
 		if (xPlayerPosX > 150)
 		{
-			// Intialise xoffset
 			int xOffset = 0;
-			// Iterate through the number of enemies
+
 			for(int i = 0; i < noOfEnemies; i++)
 			{
-				// Set xOffset
 				xOffset = MathUtils.random(600,1500);
-				// Create enemies
 				Enemy pilots = new Enemy(game, this, xOffset + xPlayerPosX, 
 						                     MathUtils.random(120,400));
 				addToObjectList(pilots);
@@ -118,7 +98,7 @@ public class MapState extends GameState
 	public void spawnHealth()
 	{
 		Vector2 position = new Vector2(xPlayerPosX + 400, 480);
-		drops = new HPItem(game, this, position, 50);
+		drops = new HPItem(game, this, position, array[mapLvl][1]);
 		addToObjectList(drops);
 	}
 	
@@ -126,37 +106,36 @@ public class MapState extends GameState
 	public void update()
 	{
 		super.update();
-		// Increment frames
 		frames++;
-		framesHealth++;
+		
 		// Get the players position.
 		xPlayerPosX = player.getPosition().x;
 		xPlayerPosY = player.getPosition().y;
 		
-		// Iterate through list and update.
 		for(int index = 0; index < objects.size(); index++)
 		{
 			objects.get(index).update();
 		}
-		// Set camera to follow player's position.
+
 		gameRef.cameraLookAt(player.getPosition());
 		
-		displayScore = "Score :" + player.getScore();
-		displayHealth = "Health :" + player.getCurrentHP();
+		// Display
+		displayScore = "Score: " + player.getScore();
+		displayHealth = "Health: " + player.getCurrentHP();
 		
 		// Spawn enemies.
 		if(frames > noOfFramesBetween)
 		{
-			spawnEnemies(3);
+			spawnEnemies(array[mapLvl][6]);
 			frames = 0;
 		}
 		
-		int num = MathUtils.random(1,3000);
-		if (num == 1)
+		// Spawn health drop.
+		int chanceOfDrop = MathUtils.random(1,array[mapLvl][1]);
+		if (chanceOfDrop == 1)
 		{
 			spawnHealth();
 		}
-		
 		
 		if(player.getCurrentHP() <=  0 && !pushedGameOver)
 		{
@@ -167,30 +146,23 @@ public class MapState extends GameState
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
 			stateManager.addState(new PauseState(gameRef, stateManager, this));
 		
-		// Iterate through the toAdd list.
 		for(int index = 0; index < toAdd.size(); index++)
 		{
-			// Add the items from the toAdd list to the object
-			// list.
 			objects.add(toAdd.get(index));
 		}
 		
-		// Iterate trough the objects list to remove
-		// objects from Map after the player has passed
 		for(int index = 0; index < objects.size(); index++)
 		{
 			if(objects.get(index) != null && 
 				 objects.get(index).getPosition().x < xPlayerPosX - 600)
-				removeFromObjectList(objects.get(index));
+				 removeFromObjectList(objects.get(index));
 		}
 		
-		// Iterate through the remove list and remove objects.
 		for(int index = 0; index < toRemove.size(); index++)
 		{
 			objects.remove(toRemove.get(index));
 		}
 		
-		// Clear lists
 		toAdd.clear();
 		toRemove.clear();
 		
@@ -205,12 +177,12 @@ public class MapState extends GameState
 	public void draw(SpriteBatch spriteBatch)
 	{
 		super.draw(spriteBatch);
-		// Draw map texture
-		spriteBatch.draw(initialiseMap,0,0);
+		spriteBatch.draw(initialiseMap, 0, 0);
 		
+		// Weapon
 		spriteBatch.draw(weaponImage, gameRef.getCameraPosition().x - 300,
 										 gameRef.getCameraPosition().y + 210);
-		// Draw the progress bar image
+		// Progress Bar
 		spriteBatch.draw(pbTexture, gameRef.getCameraPosition().x - 200, 
 				 gameRef.getCameraPosition().y - 220);
 		
@@ -235,18 +207,19 @@ public class MapState extends GameState
 			spriteBatch.draw(smallBaloon, calSBWhileCamera ,
 											 gameRef.getCameraPosition().y - 215);
 		}
-		// Iterate through the list of objects and
-		// draw them.
+
 		for(int object = 0; object < objects.size(); object++)
 		{
 			objects.get(object).draw(spriteBatch);
 		}
 		
-		font.draw(spriteBatch, displayScore, 	gameRef.getCameraPosition().x - 400,
+		// Draw scores and health status
+		font.draw(spriteBatch, displayScore, 	gameRef.getCameraPosition().x - 370,
 				      gameRef.getCameraPosition().y + 230);
 		font.draw(spriteBatch, displayHealth, gameRef.getCameraPosition().x + 300,
 							gameRef.getCameraPosition().y + 230);
 		
+		// Draw Joystick
 		ControlPanel.drawJoystick(spriteBatch, player.movingUp(), player.movingDown());
 	}
 }
