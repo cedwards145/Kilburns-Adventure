@@ -10,18 +10,18 @@ public class Weapon
 {
 	public enum FireMode { single, spread, missile };
 	
-	public static Weapon AK47 = new Weapon("Ak-47", FireMode.single, 10, 20, "ak47.png", GameSound.soundAK47);
-	public static Weapon Shotgun = new Weapon("Shotgun", FireMode.spread, 4, 40, "ak47.png", GameSound.soundAK47);
-	public static Weapon MissileLauncher = new Weapon("Missile Launcher", FireMode.missile, 1000, 180, "ak47.png", GameSound.soundAK47);
+	public static Weapon AK47 = new Weapon("Ak-47", FireMode.single, 10, 20, -1, "ak47.png", GameSound.soundAK47);
+	public static Weapon Shotgun = new Weapon("Shotgun", FireMode.spread, 4, 40, 30, "ak47.png", GameSound.soundAK47);
+	public static Weapon MissileLauncher = new Weapon("Missile Launcher", FireMode.missile, 1000, 180, 3, "ak47.png", GameSound.soundAK47);
 
 	protected Texture graphic;
 	protected String name;
 	protected int damage, rateOfFire, framesSinceShot = 0;
 	protected Sound weaponSound;
 	protected FireMode fireMode;
-	protected int ammo;
+	protected int ammo, maxAmmo;
 	
-	public Weapon(String reqName, FireMode mode, int reqDamage, int reqRateOfFire, String imageFileName, Sound reqSound)
+	public Weapon(String reqName, FireMode mode, int reqDamage, int reqRateOfFire, int reqMaxAmmo, String imageFileName, Sound reqSound)
 	{
 		name = reqName;
 		damage = reqDamage;
@@ -29,11 +29,13 @@ public class Weapon
 		graphic = new Texture("graphics/weapons/" + imageFileName);
 		weaponSound = reqSound;
 		fireMode = mode;
+		maxAmmo = reqMaxAmmo;
+		ammo = 0;
 	}
 	
 	public boolean canFire()
 	{
-		if (framesSinceShot > rateOfFire)
+		if (framesSinceShot > rateOfFire && (maxAmmo == -1 || ammo > 0))
 		{
 			framesSinceShot = 0;
 			return true;
@@ -93,9 +95,10 @@ public class Weapon
 	{
 		return graphic;
 	}
-	
-	public void ammoDec()
+	public void increaseAmmo(int value)
 	{
-		ammo --;
+		ammo += value;
+		if (ammo > maxAmmo)
+			ammo = maxAmmo;
 	}
 }
