@@ -15,7 +15,7 @@ public class HPItem extends ItemDrop{
 		super(game, containingMap, reqPosition);
 		position = reqPosition;
 		regSize = size;
-		graphic = new Texture("graphics/ballon.png");
+		graphic = new Texture("graphics/drops/dropHeart.png");
 		
 	}
 	

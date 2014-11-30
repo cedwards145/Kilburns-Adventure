@@ -16,7 +16,7 @@ public class ShieldDrop extends ItemDrop{
 	{
 		super(game, containingMap, reqPosition);
 		position = reqPosition;
-		graphic = new Texture("graphics/ballon.png");
+		graphic = new Texture("graphics/drops/dropShield.png");
 		
 	}
 	

@@ -19,6 +19,7 @@ public class AmmoDrop extends ItemDrop{
 		position = reqPosition;
 		weapon = reqWeapon;
 		numberBullets = reqNumberBullets;
+		graphic = new Texture("graphics/drops/dropAmmo.png");
 	}
 	
 	@Override
