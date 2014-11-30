@@ -64,7 +64,7 @@ public class Enemy extends MapObject{
 	public void fire()
 	{
 		Bullet bullet = new Bullet(gameRef, map, false, 5, Bullet.LEFT, position);
-		WeaponSound.soundAK47.play();
+		GameSound.soundAK47.play();
 	}
 	
 	public void takeDamage(int damage)
@@ -76,6 +76,7 @@ public class Enemy extends MapObject{
 			//falling = true;
 			map.removeFromObjectList(this);
 			map.addToObjectList(new Explosion(gameRef, map, position));
+			GameSound.explosion.play();
 			
 			map.getPlayer().addScore(scoreOfThisEnemy);
 		}
