@@ -53,13 +53,15 @@ public class Player extends MapObject{
 	public void draw(SpriteBatch spriteBatch)
 	{
 		super.draw(spriteBatch);
-		spriteBatch.draw(playerImage, position.x, position.y);
-		//spriteBatch.draw(weapon.getImage(), position.x + 50, position.y + 25);
+		
 		Texture weaponImage = weapon.getImage();
-		spriteBatch.draw(stickFigure, position.x + 26, position.y + 7, 0, 0, stickFigure.getWidth(), stickFigure.getHeight(),
+		spriteBatch.draw(stickFigure, position.x + 26, position.y + 7, 10, 4, stickFigure.getWidth(), stickFigure.getHeight(),
 		         1, 1, (float)Math.toDegrees(gunRotation), 0, 0, stickFigure.getWidth(), stickFigure.getHeight(), false, false);
-		spriteBatch.draw(weaponImage, position.x + 50, position.y + 25, 0, 0, weaponImage.getWidth(), weaponImage.getHeight(),
+		
+		spriteBatch.draw(weaponImage, position.x + 38, position.y + 23, -2, -12, weaponImage.getWidth(), weaponImage.getHeight(),
 				         1, 1, (float)Math.toDegrees(gunRotation), 0, 0, weaponImage.getWidth(), weaponImage.getHeight(), false, false);
+		
+		spriteBatch.draw(playerImage, position.x, position.y);
 	}
 		
 	public void updateMotion()
