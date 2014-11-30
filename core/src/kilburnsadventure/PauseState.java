@@ -26,6 +26,7 @@ public class PauseState extends GameState{
 		restartButton = new Rectangle(271, 201, 261, 40);
 		quitButton = new Rectangle(271, 144, 261, 40);
 		map = reqMap;
+		map.enabled = false;
 	}
 	
 	@Override
@@ -43,7 +44,10 @@ public class PauseState extends GameState{
 		{
 			Vector3 touchPoint = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
 			if(resumeButton.contains(touchPoint.x, touchPoint.y))
+			{
 				stateManager.removeState(this);
+				map.enabled = true;
+			}
 			else if (restartButton.contains(touchPoint.x, touchPoint.y))
 			{
 				gameRef.resetCamera();
