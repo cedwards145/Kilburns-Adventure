@@ -17,6 +17,7 @@ public class Player extends MapObject{
 	protected Weapon weapon;
 	private int score = 0;
 	protected int movementTouchIndex, weaponTouchIndex;
+	protected boolean leftMove = false, rightMove = false, upMove = false, downMove = false;
 	
 	//player constructor
 	public Player(Game game, MapState containingMap, int xPosition, int yPosition)
@@ -40,10 +41,9 @@ public class Player extends MapObject{
 	public void draw(SpriteBatch spriteBatch)
 	{
 		super.draw(spriteBatch);
-		spriteBatch.draw(playerImage, position.x, position.y);	
+		spriteBatch.draw(playerImage, position.x, position.y);
 	}
-	
-	
+		
 	public void updateMotion(){
 		movementTouchIndex = -1;
 		weaponTouchIndex = -1;
@@ -68,9 +68,6 @@ public class Player extends MapObject{
 			else
 				weaponTouchIndex = 1;
 		}
-		
-		//Moving options
-		boolean leftMove = false, rightMove = false, upMove = false, downMove = false;
 		
 		if (movementTouchIndex != -1 && Gdx.input.isTouched(movementTouchIndex))
 		{
@@ -219,6 +216,14 @@ public class Player extends MapObject{
 	public Weapon getWeapon()
 	{
 		return weapon;
+	}
+	public boolean movingUp()
+	{
+		return upMove;
+	}
+	public boolean movingDown()
+	{
+		return downMove;
 	}
 	
 	//Score-----------------------------------------------------------------------------------------------------

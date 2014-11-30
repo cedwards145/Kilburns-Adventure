@@ -31,6 +31,8 @@ public class Game extends ApplicationAdapter {
 		stateManager = new StateManager(this);
 		stateManager.addState(new TitleState(this, stateManager));
 		
+		ControlPanel.init(this);
+		
 		// Create game objects here
 	}
 	
@@ -43,6 +45,7 @@ public class Game extends ApplicationAdapter {
 		
 		// Update code goes here
 	}
+	
 	
 	public void draw()
 	{
