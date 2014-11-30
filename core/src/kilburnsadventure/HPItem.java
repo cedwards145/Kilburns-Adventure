@@ -10,10 +10,10 @@ public class HPItem extends ItemDrop{
 	private Vector2 position;
 	private int regSize;
 	private Texture graphic;
-	public HPItem(Game game, MapState containingMap, float xPosition, float yPosition, int size)
+	public HPItem(Game game, MapState containingMap, Vector2 reqPosition, int size)
 	{
-		super(game, containingMap, yPosition, yPosition);
-		position = new Vector2(xPosition, yPosition);
+		super(game, containingMap, reqPosition);
+		position = reqPosition;
 		regSize = size;
 		graphic = new Texture("graphics/ballon.png");
 		

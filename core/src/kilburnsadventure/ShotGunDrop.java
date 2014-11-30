@@ -12,10 +12,10 @@ public class ShotGunDrop extends ItemDrop{
 	private Texture graphic; //path the graph is stored
 	
 	//constructor
-	public ShotGunDrop(Game game, MapState containingMap, float xPosition, float yPosition, int size)
+	public ShotGunDrop(Game game, MapState containingMap, Vector2 reqPosition, int size)
 	{
-		super(game, containingMap, yPosition, yPosition);
-		position = new Vector2(xPosition, yPosition);
+		super(game, containingMap, reqPosition);
+		position = reqPosition;
 		regSize = size;
 		graphic = new Texture("graphics/ballon.png");
 		

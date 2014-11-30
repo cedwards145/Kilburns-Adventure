@@ -7,10 +7,10 @@ public class ItemDrop extends MapObject{
 
 	protected Vector2 position;
 	//ItemDrop constructor
-	public ItemDrop(Game game, MapState containingMap, float xPosition, float yPosition)
+	public ItemDrop(Game game, MapState containingMap, Vector2 reqPosition)
 	{
 		super(game, containingMap);
-		position = new Vector2(xPosition, yPosition);
+		position = reqPosition;
 	}
 	
 	@Override
