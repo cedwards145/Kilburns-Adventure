@@ -9,30 +9,30 @@ import com.badlogic.gdx.math.Vector3;
 
 public class LevelSelectState extends GameState 
 {
-	private Texture levels;
-	
-	private Rectangle[] buttons;
-	
 	private Rectangle backButton;
-	private Texture backImage;
-	private Vector2 backPos;
+	private Rectangle[] levelButtons;
+	private Texture[] levelImages;
+	private Texture background;
+	private int levelsUnlocked;
 
 	public LevelSelectState(Game game, StateManager manager)
 	{
 		super(game, manager);
-		levels = new Texture("graphics/selectLevel.jpg");
 		
-		buttons = new Rectangle[5];
+		levelsUnlocked = game.getLevelsUnlocked();
+
+		backButton = new Rectangle(268, 100, 265, 41);
+		levelButtons = new Rectangle[5];
+		levelImages = new Texture[5];
 		
-		for (int index = 0; index < 5; index++)
+		for (int index = 0; index < levelButtons.length; index++)
 		{
-			buttons[index] = new Rectangle(26 + 150 * index, 14, 126, 126);
+			levelButtons[index] = new Rectangle(132 + index * 110, 190, 95, 95);
+			levelImages[index] = new Texture("graphics/lvlButtons/lvl" + (index + 1) +
+					                           (index <= levelsUnlocked ? "" : "lock") + ".png");
 		}
 		
-		
-		backImage = new Texture("graphics/quitImage.jpg");
-		backPos = new Vector2(0, game.getHeight() - 100);
-		backButton = new Rectangle(backPos.x, backPos.y, 126, 126);
+		background = new Texture("graphics/levelscreen.png");
 	}
 	
 	@Override 
@@ -49,12 +49,9 @@ public class LevelSelectState extends GameState
 			}//if
 			else
 			{
-			    int x = Gdx.input.getX();
-			    int y = gameRef.getHeight() - Gdx.input.getY();
-			
-			    for (int levelIndex = 0; levelIndex < buttons.length; levelIndex++)
+			    for (int levelIndex = 0; levelIndex < levelButtons.length; levelIndex++)
 			    {
-			     	if (buttons[levelIndex].contains(x, y))
+			     	if (levelButtons[levelIndex].contains(touchPoint.x, touchPoint.y) && levelIndex <= levelsUnlocked)
 				    {
 					    stateManager.removeState(this);
 				    	stateManager.addState(new MapState(gameRef, stateManager, levelIndex));
@@ -67,7 +64,11 @@ public class LevelSelectState extends GameState
 	@Override
 	public void draw(SpriteBatch spriteBatch)
 	{
-		spriteBatch.draw(levels, 0, 0);
-		spriteBatch.draw(backImage, backPos.x, backPos.y);
+		spriteBatch.draw(background, 0, 0);
+		
+		for (int levelIndex = 0; levelIndex < levelButtons.length; levelIndex++)
+		{
+			spriteBatch.draw(levelImages[levelIndex], levelButtons[levelIndex].x, levelButtons[levelIndex].y);
+		}
 	}
 }
