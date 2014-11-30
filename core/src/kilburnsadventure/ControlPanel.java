@@ -1,5 +1,4 @@
 package kilburnsadventure;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -7,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class ControlPanel
 {
-	private static Rectangle panel = new Rectangle(0, 0, 150, 150);
 	private static Rectangle upButton = new Rectangle(0, 75, 150, 75), downButton = new Rectangle(0, 0, 150, 75);
 	protected static Texture joystick;	
 	

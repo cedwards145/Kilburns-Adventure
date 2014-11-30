@@ -14,12 +14,7 @@ public class TitleState extends GameState
 	private Vector2 balloonPos;
 	
 	private Rectangle quitButton;
-	private Texture quitImage;
-	private Vector2 quitPos;
-	
 	private Rectangle startButton;
-	private Texture startImage;
-	private Vector2 startPos;
 	
 	private double x;
 	
