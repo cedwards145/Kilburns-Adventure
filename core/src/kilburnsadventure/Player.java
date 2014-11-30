@@ -41,6 +41,7 @@ public class Player extends MapObject{
 	{
 		updateMotion();
 		weapon.update();
+		
 		if (haveShield)
 			updateShield();
 	}
@@ -205,7 +206,7 @@ public class Player extends MapObject{
 	}
 	
 	//function of shield
-	public void haveShield()
+	public void setShield()
 	{
 		haveShield = true;
 		shieldTimer = 0;
