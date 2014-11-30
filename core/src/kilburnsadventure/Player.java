@@ -114,21 +114,15 @@ public class Player extends MapObject{
 		
 		//if (rightMove)
 		position.x += xSpeed;
-		balloonCollision.x += xSpeed;
-		basketCollision.x += xSpeed;
 		
 		if (upMove)
 		{
 			position.y += ySpeed;
-			balloonCollision.y += ySpeed;
-			basketCollision.y += ySpeed;
 		}
 		
 		if (downMove)
 		{
 			position.y -= ySpeed;
-			balloonCollision.y -= ySpeed;
-			basketCollision.y -= ySpeed;
 		}
 		/*---------------------------------*/
 		
@@ -141,6 +135,12 @@ public class Player extends MapObject{
 			//playerPos.x = 650;
 		if (position.y > gameRef.getHeight() - playerImage.getHeight())
 			position.y = gameRef.getHeight() - playerImage.getHeight();
+		
+		// Adjust collision positions
+		balloonCollision.x = position.x + 3;
+	    balloonCollision.y = position.y + 46;
+	    basketCollision.x = position.x + 16;
+	    basketCollision.y = position.y;
 		
 		// Fire bullet
 		if (weaponTouchIndex != -1 && Gdx.input.isTouched(weaponTouchIndex) && weapon.canFire())
