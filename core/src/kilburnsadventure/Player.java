@@ -127,7 +127,16 @@ public class Player extends MapObject{
 		// Fire bullet
 		if (weaponTouchIndex != -1 && Gdx.input.isTouched(weaponTouchIndex) && weapon.canFire())
 		{
-			Bullet bullet = new Bullet(gameRef, map, true, weapon.getDamage(), Bullet.RIGHT, position);
+			Vector3 touchPosition3 = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(weaponTouchIndex), 
+					                                                           Gdx.input.getY(weaponTouchIndex), 0));
+			Vector2 touchPosition = new Vector2(touchPosition3.x, touchPosition3.y);
+			
+			Vector2 difference = new Vector2(position.x - touchPosition.x,
+					                         position.y - touchPosition.y);
+			
+			double angle = Math.atan((double)(difference.y / difference.x));
+			
+			Bullet bullet = new Bullet(gameRef, map, true, weapon.getDamage(), angle, position);
 			WeaponSound.AK47.getWeaponSound().play();
 		}
 		

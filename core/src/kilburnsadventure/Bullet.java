@@ -15,6 +15,7 @@ public class Bullet extends MapObject
 	protected int direction, damage;
 	protected Texture graphic;
 	protected boolean firedByPlayer;
+	protected double rotation;
 	
 	public Bullet(Game game, MapState reqMap, boolean playerBullet, int reqDamage, int reqDirection, Vector2 startPosition)
 	{
@@ -27,10 +28,28 @@ public class Bullet extends MapObject
 		map.addToObjectList(this);
 	}
 	
+	public Bullet(Game game, MapState reqMap, boolean playerBullet, int reqDamage, double reqRotation, Vector2 startPosition)
+	{
+		super(game, reqMap);
+		direction = 0;
+		rotation = reqRotation;
+		damage = reqDamage;
+		graphic = new Texture("graphics/weapons/bullets/bullet.png");
+		firedByPlayer = playerBullet;
+		position = new Vector2(startPosition.x, startPosition.y);
+		map.addToObjectList(this);
+	}
+	
 	@Override
 	public void update()
 	{
-		position.x += (speed * direction);
+		if (direction == 0)
+		{
+			position.x += Math.cos(rotation) * speed;
+			position.y += Math.sin(rotation) * speed;
+		}
+		else
+			position.x += (speed * direction);
 		
 		List<MapObject> mapObjects = map.getObjectList();
 		
