@@ -42,6 +42,8 @@ public class Player extends MapObject{
 		updateMotion();
 		weapon.update();
 		
+		if (Gdx.input.isKeyPressed(Keys.P))
+			setShield();
 		if (haveShield)
 			updateShield();
 	}
@@ -212,13 +214,13 @@ public class Player extends MapObject{
 		shieldTimer = 0;
 	}
 	
+	//timing the shield
 	private void updateShield()
 	{
 		shieldTimer++;
-		if(shieldTimer > 300)
+		if(shieldTimer > 600)
 		{
 			haveShield = false;
-			shieldTimer = 0;
 		}
 	}
 	
