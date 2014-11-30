@@ -2,6 +2,7 @@ package kilburnsadventure;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,6 +25,8 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () 
 	{
+		loadPrefs();
+		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
 		width = 800;
@@ -37,6 +40,12 @@ public class Game extends ApplicationAdapter {
 		ControlPanel.init(this);
 		
 		// Create game objects here
+	}
+	
+	protected void loadPrefs()
+	{
+		Preferences prefs = Gdx.app.getPreferences("ka-prefs");
+		levelsUnlocked = prefs.getInteger("level", 0);
 	}
 	
 	public void update()

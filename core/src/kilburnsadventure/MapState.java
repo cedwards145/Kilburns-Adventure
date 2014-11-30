@@ -3,10 +3,13 @@ package kilburnsadventure;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.PauseableThread;
 
 
 public class MapState extends GameState 
@@ -141,6 +144,9 @@ public class MapState extends GameState
 			pushedGameOver = true;
 			stateManager.addState(new GameOverState(gameRef, stateManager, this));
 		}
+		
+		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
+			stateManager.addState(new PauseState(gameRef, stateManager, this)));
 		
 		// Iterate through the toAdd list.
 		for(int index = 0; index < toAdd.size(); index++)
