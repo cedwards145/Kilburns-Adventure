@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.sun.media.jfxmedia.events.PlayerStateEvent.PlayerState;
 
 
 public class MapState extends GameState 
@@ -210,6 +211,11 @@ public class MapState extends GameState
 							gameRef.getCameraPosition().y + 230);
 		
 		ControlPanel.drawJoystick(spriteBatch, player.movingUp(), player.movingDown());
+		
+		if(player.getCurrentHP() <=  0)
+		{
+			stateManager.addState(new GameOverState(gameRef, StateManager this));
+		}
 	}
 }
 
