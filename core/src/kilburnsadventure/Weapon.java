@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Weapon 
 {
-	public static Weapon AK47 = new Weapon("Ak-47", 10, 20, "AK-47.png", "AK47.wav");
+	public static Weapon AK47 = new Weapon("Ak-47", 10, 20, "ak47.png", "AK47.wav");
 
 	protected Texture graphic;
 	protected String name;

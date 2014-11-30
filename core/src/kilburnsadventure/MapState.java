@@ -25,6 +25,8 @@ public class MapState extends GameState
 	private String displayScore;
 	private String displayHealth;
 	private BitmapFont font;
+	private Weapon weapon;
+	private Texture weaponImage;
 	private Texture pbTexture;
 	private Texture pbUpdate;
 	private Texture smallBaloon;
@@ -48,6 +50,8 @@ public class MapState extends GameState
 		smallBaloon = map.getSmallBaloon();
 		// Create the player.
 		player = new Player(game,this, 0,0);
+		weapon = player.getWeapon();
+		weaponImage = weapon.getImage();
 		// Add player to the list of objects.
 		objects.add(player);
 		font = new BitmapFont();
@@ -197,6 +201,8 @@ public class MapState extends GameState
 				      gameRef.getCameraPosition().y + 230);
 		font.draw(spriteBatch, displayHealth, gameRef.getCameraPosition().x + 300,
 							gameRef.getCameraPosition().y + 230);
+		
+		ControlPanel.drawJoystick(spriteBatch, player.movingUp(), player.movingDown());
 	}
 }
 
