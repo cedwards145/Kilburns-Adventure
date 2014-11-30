@@ -145,7 +145,7 @@ public class MapState extends GameState
 			stateManager.addState(new GameOverState(gameRef, stateManager, this));
 		}
 		
-		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
 			stateManager.addState(new PauseState(gameRef, stateManager, this));
 		
 		// Iterate through the toAdd list.

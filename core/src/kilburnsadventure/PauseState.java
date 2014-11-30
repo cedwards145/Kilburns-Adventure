@@ -40,14 +40,24 @@ public class PauseState extends GameState{
 	@Override
 	public void update()
 	{
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+		{
+			stateManager.removeState(this);
+			map.enabled = true;
+		}
+		
 		if (Gdx.input.isTouched())
 		{
+				
 			Vector3 touchPoint = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+			
+			//resume
 			if(resumeButton.contains(touchPoint.x, touchPoint.y))
 			{
 				stateManager.removeState(this);
 				map.enabled = true;
 			}
+			//restart
 			else if (restartButton.contains(touchPoint.x, touchPoint.y))
 			{
 				gameRef.resetCamera();
@@ -55,6 +65,7 @@ public class PauseState extends GameState{
 				stateManager.removeState(map);
 				stateManager.addState(new MapState(gameRef, stateManager, map.getMapLvl()));
 			}
+			//quit
 			else if (quitButton.contains(touchPoint.x, touchPoint.y))
 			{
 				gameRef.resetCamera();
