@@ -164,6 +164,7 @@ public class Player extends MapObject{
 	public void takeDamage(int damage)
 	{
 		currentHP -= damage;
+		Gdx.input.vibrate(100);
 	}
 	
 	//functions used in HPItem
