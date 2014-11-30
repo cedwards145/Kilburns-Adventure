@@ -82,6 +82,11 @@ public class MapState extends GameState
 		return player;
 	}
 	
+	public int getMapLvl()
+	{
+		return mapLvl;
+	}
+	
 	// Spawn enemies on map
 	public void spawnEnemies(int noOfEnemies)
 	{
