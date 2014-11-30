@@ -146,7 +146,7 @@ public class Player extends MapObject{
 			gunRotation = angle;
 			
 			Bullet bullet = new Bullet(gameRef, map, true, weapon.getDamage(), angle, bulletOrigin);
-			WeaponSound.AK47.getWeaponSound().play();
+			weapon.sound47.play();
 		}
 		
 	}

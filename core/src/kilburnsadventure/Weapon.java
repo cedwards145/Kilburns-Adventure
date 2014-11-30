@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Weapon 
 {
-	public static Weapon AK47 = new Weapon("Ak-47", 10, 20, "ak47.png", "AK47.wav");
+	public static Weapon AK47 = new Weapon("Ak-47", 10, 20, "ak47.png");
 
 	protected Texture graphic;
 	protected String name;
 	protected int damage, rateOfFire, framesSinceShot = 0;
 	
-	public Weapon(String reqName, int reqDamage, int reqRateOfFire, String imageFileName, String soundFileName)
+	public Weapon(String reqName, int reqDamage, int reqRateOfFire, String imageFileName)
 	{
 		name = reqName;
 		damage = reqDamage;
@@ -20,6 +20,7 @@ public class Weapon
 		graphic = new Texture("graphics/weapons/" + imageFileName);
 	}
 	
+	public static Sound sound47 = Gdx.audio.newSound(Gdx.files.internal("audio/AK47.wav"));
 	
 	public boolean canFire()
 	{
