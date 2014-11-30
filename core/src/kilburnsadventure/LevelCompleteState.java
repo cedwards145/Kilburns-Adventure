@@ -15,15 +15,15 @@ public class LevelCompleteState extends GameState{
 	private Rectangle quitButton;
     private MapState map;
 	
-	
 	public LevelCompleteState(Game game, StateManager manager, MapState reqMap)
 	{
 		super(game, manager);
 		levelCompleteImage = new Texture("graphics/nextgame.png");
-		continueButton = new Rectangle(268, 260, 262, 42);
-		quitButton = new Rectangle(268, 320, 262, 42);
+		continueButton = new Rectangle(268, 222, 262, 42);
+		quitButton = new Rectangle(268, 159, 262, 42);
 		map = reqMap;
 		map.enabled = false;
+		game.completeLevel(map.getMapLvl());
 	}
 	
 	@Override
@@ -37,12 +37,6 @@ public class LevelCompleteState extends GameState{
 	@Override
 	public void update()
 	{
-		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
-		{
-			stateManager.removeState(this);
-			map.enabled = true;
-		}
-		
 		if (Gdx.input.isTouched())
 		{
 				
@@ -54,6 +48,7 @@ public class LevelCompleteState extends GameState{
 			//continue to next level
 			if(continueButton.contains(touchPoint.x, touchPoint.y))
 			{
+				gameRef.resetCamera();
 				stateManager.removeState(this);
 				stateManager.removeState(map);
 				stateManager.addState(new MapState(gameRef,  stateManager, map.getMapLvl() + 1));
