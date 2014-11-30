@@ -88,7 +88,7 @@ public class MapState extends GameState
 			{
 				xOffset = MathUtils.random(600,1500);
 				Enemy pilots = new Enemy(game, this, xOffset + xPlayerPosX, 
-						                     MathUtils.random(120,400));
+						                     MathUtils.random(40,400));
 				addToObjectList(pilots);
 			}
 		}
