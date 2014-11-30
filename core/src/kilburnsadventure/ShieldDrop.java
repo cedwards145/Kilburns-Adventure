@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class ShieldDrop extends ItemDrop{
 
-	private Vector2 position; //position
 	private int regSize;  //size of drop
 	
 	//constructor
