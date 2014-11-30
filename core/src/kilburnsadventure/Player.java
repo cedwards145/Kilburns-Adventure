@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -15,6 +16,7 @@ public class Player extends MapObject{
 	//baloon image
 	private Texture playerImage;
 	protected Weapon weapon;
+	protected Rectangle balloonCollision, basketCollision;
 	private int score = 0;
 	protected int movementTouchIndex, weaponTouchIndex;
 	protected boolean leftMove = false, rightMove = false, upMove = false, downMove = false;
@@ -29,6 +31,9 @@ public class Player extends MapObject{
 	    
 	    currentHP = maxHP;
 	    weapon = Weapon.AK47;
+	    
+	    balloonCollision = new Rectangle(position.x + 3, position.y + 46, 64, 57);
+	    basketCollision = new Rectangle(position.x + 16, position.y, 37, 46);
 	}	
 	
 	@Override
@@ -108,13 +113,23 @@ public class Player extends MapObject{
 		//	position.x -= xSpeed;
 		
 		//if (rightMove)
-			position.x += xSpeed;
+		position.x += xSpeed;
+		balloonCollision.x += xSpeed;
+		basketCollision.x += xSpeed;
 		
 		if (upMove)
+		{
 			position.y += ySpeed;
+			balloonCollision.y += ySpeed;
+			basketCollision.y += ySpeed;
+		}
 		
 		if (downMove)
+		{
 			position.y -= ySpeed;
+			balloonCollision.y -= ySpeed;
+			basketCollision.y -= ySpeed;
+		}
 		/*---------------------------------*/
 		
 		/*-------------make sure player does not run out of bound-----------*/
@@ -205,13 +220,13 @@ public class Player extends MapObject{
 	
 	public boolean collides(Vector2 point)
 	{
-		Rectangle collisionBox = new Rectangle(position.x, position.y, playerImage.getWidth(), playerImage.getHeight());
-		return collisionBox.contains(point);
+		return balloonCollision.contains(point) || basketCollision.contains(point);
 	}
 	
-	public Rectangle getCollisionBox()
+	public boolean intersects(Rectangle box)
 	{
-		return new Rectangle(position.x, position.y, playerImage.getWidth(), playerImage.getHeight());
+		return Intersector.overlaps(balloonCollision, box) 
+				|| Intersector.overlaps(basketCollision, box);
 	}
 	
 	//Score-----------------------------------------------------------------------------------------------------

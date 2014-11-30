@@ -24,19 +24,11 @@ public class HPItem extends ItemDrop{
 	@Override
 	public void update()
 	{
-		List<MapObject> mapObjects = map.getObjectList();
-		
-		for (MapObject object : mapObjects)
+		Player player = map.getPlayer();
+		if (player.intersects(new Rectangle(position.x, position.y, graphic.getWidth(), graphic.getHeight())))
 		{
-			if (object instanceof Player && object instanceof HPItem)
-			{
-				Player player = (Player)object;
-				if (player.getCollisionBox().contains(position))
-				{
-					player.addHP(regSize);
-					map.removeFromObjectList(this);
-				}
-			}
+			player.addHP(regSize);
+			map.removeFromObjectList(this);
 		}
 	}
 	
