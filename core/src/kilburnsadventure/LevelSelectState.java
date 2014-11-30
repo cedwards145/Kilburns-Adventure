@@ -29,7 +29,7 @@ public class LevelSelectState extends GameState
 		{
 			levelButtons[index] = new Rectangle(132 + index * 110, 190, 95, 95);
 			levelImages[index] = new Texture("graphics/lvlButtons/lvl" + (index + 1) +
-					                           (index <= levelsUnlocked ? "" : "lock") + ".png");
+					                           (index + 1 <= levelsUnlocked ? "" : "lock") + ".png");
 		}
 		
 		background = new Texture("graphics/levelscreen.png");
@@ -51,7 +51,7 @@ public class LevelSelectState extends GameState
 			{
 			    for (int levelIndex = 0; levelIndex < levelButtons.length; levelIndex++)
 			    {
-			     	if (levelButtons[levelIndex].contains(touchPoint.x, touchPoint.y) && levelIndex <= levelsUnlocked)
+			     	if (levelButtons[levelIndex].contains(touchPoint.x, touchPoint.y) && levelIndex + 1 <= levelsUnlocked)
 				    {
 					    stateManager.removeState(this);
 				    	stateManager.addState(new MapState(gameRef, stateManager, levelIndex));

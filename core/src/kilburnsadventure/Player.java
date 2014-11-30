@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 public class Player extends MapObject{
 
 	//baloon image
-	private Texture playerImage;
+	private Texture playerImage, stickFigure;
 	protected Weapon weapon;
 	protected Rectangle balloonCollision, basketCollision;
 	private int score = 0;
@@ -28,6 +28,7 @@ public class Player extends MapObject{
 	    super(game, containingMap);
 	    position = new Vector2(xPosition, yPosition);
 	    playerImage = new Texture("graphics/ballon.png");
+	    stickFigure = new Texture("graphics/player.png");
 	    
 	    currentHP = maxHP;
 	    weapon = Weapon.AK47;
@@ -55,6 +56,8 @@ public class Player extends MapObject{
 		spriteBatch.draw(playerImage, position.x, position.y);
 		//spriteBatch.draw(weapon.getImage(), position.x + 50, position.y + 25);
 		Texture weaponImage = weapon.getImage();
+		spriteBatch.draw(stickFigure, position.x + 26, position.y + 7, 0, 0, stickFigure.getWidth(), stickFigure.getHeight(),
+		         1, 1, (float)Math.toDegrees(gunRotation), 0, 0, stickFigure.getWidth(), stickFigure.getHeight(), false, false);
 		spriteBatch.draw(weaponImage, position.x + 50, position.y + 25, 0, 0, weaponImage.getWidth(), weaponImage.getHeight(),
 				         1, 1, (float)Math.toDegrees(gunRotation), 0, 0, weaponImage.getWidth(), weaponImage.getHeight(), false, false);
 	}

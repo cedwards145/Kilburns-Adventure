@@ -17,7 +17,7 @@ public class Game extends ApplicationAdapter {
 	protected StateManager stateManager;
 	protected int width, height;
 	
-	protected int levelsUnlocked = 0;
+	protected int levelsUnlocked = 1;
 	
 	protected boolean cameraShaking = false;
 	protected int shakeIntensity, shakeDuration, timeShaking = 0;
@@ -45,7 +45,7 @@ public class Game extends ApplicationAdapter {
 	protected void loadPrefs()
 	{
 		Preferences prefs = Gdx.app.getPreferences("ka-prefs");
-		levelsUnlocked = prefs.getInteger("level", 0);
+		levelsUnlocked = prefs.getInteger("level", 1);
 	}
 	
 	public void update()
@@ -145,5 +145,11 @@ public class Game extends ApplicationAdapter {
 	public void resetCamera()
 	{
 		camera.position.set(width / 2, height / 2, 0);
+	}
+	
+	public void completeLevel(int levelCompleted)
+	{
+		if (levelCompleted >= levelsUnlocked)
+			levelsUnlocked = levelCompleted + 1;
 	}
 }
