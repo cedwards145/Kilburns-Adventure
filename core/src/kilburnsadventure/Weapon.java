@@ -58,6 +58,14 @@ public class Weapon
 		else if (fireMode == FireMode.missile)
 		{
 			List<MapObject> objects = targetMap.getObjectList();
+			for (MapObject object : objects)
+			{
+				if (object instanceof Enemy)
+				{
+					Enemy enemy = (Enemy)object;
+					Missile missile = new Missile(gameRef, targetMap, true, damage, 0, position, enemy);
+				}
+			}
 		}
 		weaponSound.play();
 	}

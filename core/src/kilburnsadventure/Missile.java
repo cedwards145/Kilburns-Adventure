@@ -16,8 +16,8 @@ public class Missile extends Bullet
 	public void update()
 	{
 		Vector2 enemyPosition = following.getPosition();
-		Vector2 difference = new Vector2(position.x - enemyPosition.x,
-                						 position.y - enemyPosition.y);
+		Vector2 difference = new Vector2(position.x - enemyPosition.x - 10,
+                						 position.y - enemyPosition.y - 10);
 		
 		rotation = Math.atan((double)(difference.y / difference.x));
 		

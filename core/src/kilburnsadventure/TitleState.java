@@ -21,21 +21,17 @@ public class TitleState extends GameState
 	private Texture startImage;
 	private Vector2 startPos;
 	
+	private double x;
 	
 	public TitleState(Game game, StateManager manager)
 	{
 		super(game, manager);
 		titleImage = new Texture("graphics/titlescreen.png");
 		balloonImage = new Texture("graphics/ballon.png");
-		balloonPos = new Vector2(600, 150);
+		balloonPos = new Vector2(130, 180);
 		
-		startImage = new Texture("graphics/startImage.jpg");
-		startPos = new Vector2(0, game.getHeight() / 2);
-		startButton = new Rectangle(startPos.x, startPos.y, 126, 126);
-		
-		quitImage = new Texture("graphics/quitImage.jpg");
-		quitPos = new Vector2(game.getWidth() / 2, game.getHeight() / 2);
-		quitButton = new Rectangle(quitPos.x, quitPos.y, 126, 126);
+		startButton = new Rectangle(489, 231, 262, 42);
+		quitButton = new Rectangle(489, 85, 262, 42);
 	}
 	
 	@Override
@@ -43,26 +39,27 @@ public class TitleState extends GameState
 	{
 		super.draw(spriteBatch);
 		spriteBatch.draw(titleImage, 0, 0);
-		spriteBatch.draw(startImage, startPos.x, startPos.y);
-		spriteBatch.draw(quitImage, quitPos.x, quitPos.y);
 		spriteBatch.draw(balloonImage, balloonPos.x, balloonPos.y);
 	}
 	
 	@Override
 	public void update()
 	{
+		
+		balloonPos.y = 125 + (float)(Math.sin(Math.toRadians(x)) * 50);
+		x++;
+		
 		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
 			Gdx.app.exit();
-		else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) || 
-			Gdx.input.isTouched())
+		else if (Gdx.input.isTouched())
 		{
-			Vector3 touchPoint = gameRef.getCamera().unproject( new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0) );
+			Vector3 touchPoint = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
 			if(quitButton.contains(touchPoint.x, touchPoint.y))
 				Gdx.app.exit();
 			else if(startButton.contains(touchPoint.x, touchPoint.y))
 			{
-		    stateManager.removeState(this);
-			  stateManager.addState(new LevelSelectState(gameRef, stateManager));
+				stateManager.removeState(this);
+				stateManager.addState(new LevelSelectState(gameRef, stateManager));
 			}
 		}
 		

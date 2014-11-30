@@ -30,7 +30,7 @@ public class Player extends MapObject{
 	    playerImage = new Texture("graphics/ballon.png");
 	    
 	    currentHP = maxHP;
-	    weapon = Weapon.Shotgun;
+	    weapon = Weapon.MissileLauncher;
 	    
 	    balloonCollision = new Rectangle(position.x + 3, position.y + 46, 64, 57);
 	    basketCollision = new Rectangle(position.x + 16, position.y, 37, 46);
@@ -145,7 +145,7 @@ public class Player extends MapObject{
 		// Fire bullet
 		if (weaponTouchIndex != -1 && Gdx.input.isTouched(weaponTouchIndex) && weapon.canFire())
 		{
-			float gunLength = weapon.getImage().getWidth(); 
+			float gunLength = weapon.getImage().getWidth();
 			
 			Vector3 touchPosition3 = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(weaponTouchIndex), 
 					                                                           Gdx.input.getY(weaponTouchIndex), 0));
