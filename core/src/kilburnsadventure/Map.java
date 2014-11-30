@@ -19,6 +19,10 @@ public class Map extends GameObject
 		mapBackgrounds = new String[5];
 		mapBackgrounds[0] = "lvl1.jpg";
 		mapBackgrounds[1] = "lvl2.jpg";
+		mapBackgrounds[2] = "lvl3.jpg";
+		mapBackgrounds[3] = "lvl4.jpg";
+		mapBackgrounds[4] = "lvl5.jpg";
+		
 		buildMap = new Texture("graphics/maps/" + mapBackgrounds[level]);
 		
 		progressBar = new Texture("graphics/progressBar.jpg");
