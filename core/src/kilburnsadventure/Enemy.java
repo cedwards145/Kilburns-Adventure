@@ -20,7 +20,7 @@ public class Enemy extends MapObject{
 		super(game, containingMap);
 		position = new Vector2(xPosition, yPosition);
 
-		graphic = new Texture("graphics/enemies/dummy.png");
+		graphic = new Texture("graphics/enemies/f22.png");
 	}
 	
 	@Override
@@ -73,7 +73,10 @@ public class Enemy extends MapObject{
 		
 		if (health <= 0)
 		{
-			falling = true;
+			//falling = true;
+			map.removeFromObjectList(this);
+			map.addToObjectList(new Explosion(gameRef, map, position));
+			
 			map.getPlayer().addScore(scoreOfThisEnemy);
 		}
 	}
@@ -81,7 +84,7 @@ public class Enemy extends MapObject{
 	public boolean collides(Vector2 point)
 	{
 		Rectangle collisionBox = new Rectangle(position.x, position.y, graphic.getWidth(), graphic.getHeight());
-		return collisionBox.contains(point);
+		return !falling && collisionBox.contains(point);
 	}
 	
 	public Rectangle getCollisionBox()

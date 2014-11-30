@@ -16,6 +16,8 @@ public class Bullet extends MapObject
 	protected Texture graphic;
 	protected boolean firedByPlayer;
 	protected double rotation;
+	protected int timeToLive = 200;
+	protected int timeAlive = 0;
 	
 	public Bullet(Game game, MapState reqMap, boolean playerBullet, int reqDamage, int reqDirection, Vector2 startPosition)
 	{
@@ -74,6 +76,10 @@ public class Bullet extends MapObject
 				}
 			}
 		}
+		
+		timeAlive++;
+		if (timeAlive > timeToLive)
+			map.removeFromObjectList(this);
 	}
 	
 	@Override

@@ -18,6 +18,7 @@ public class Player extends MapObject{
 	private int score = 0;
 	protected int movementTouchIndex, weaponTouchIndex;
 	protected boolean leftMove = false, rightMove = false, upMove = false, downMove = false;
+	protected double gunRotation = 0;
 	
 	//player constructor
 	public Player(Game game, MapState containingMap, int xPosition, int yPosition)
@@ -42,9 +43,14 @@ public class Player extends MapObject{
 	{
 		super.draw(spriteBatch);
 		spriteBatch.draw(playerImage, position.x, position.y);
+		//spriteBatch.draw(weapon.getImage(), position.x + 50, position.y + 25);
+		Texture weaponImage = weapon.getImage();
+		spriteBatch.draw(weaponImage, position.x + 50, position.y + 25, 0, 0, weaponImage.getWidth(), weaponImage.getHeight(),
+				         1, 1, (float)Math.toDegrees(gunRotation), 0, 0, weaponImage.getWidth(), weaponImage.getHeight(), false, false);
 	}
 		
-	public void updateMotion(){
+	public void updateMotion()
+	{
 		movementTouchIndex = -1;
 		weaponTouchIndex = -1;
 		
@@ -124,16 +130,22 @@ public class Player extends MapObject{
 		// Fire bullet
 		if (weaponTouchIndex != -1 && Gdx.input.isTouched(weaponTouchIndex) && weapon.canFire())
 		{
+			float gunLength = weapon.getImage().getWidth(); 
+			
 			Vector3 touchPosition3 = gameRef.getCamera().unproject(new Vector3(Gdx.input.getX(weaponTouchIndex), 
 					                                                           Gdx.input.getY(weaponTouchIndex), 0));
 			Vector2 touchPosition = new Vector2(touchPosition3.x, touchPosition3.y);
 			
-			Vector2 difference = new Vector2(position.x - touchPosition.x,
-					                         position.y - touchPosition.y);
+			Vector2 difference = new Vector2(position.x + 50 - touchPosition.x,
+					                         position.y + 25 - touchPosition.y);
+			
+			Vector2 bulletOrigin = new Vector2(position.x + 50 + (float)Math.cos(gunRotation) * gunLength, 
+					                           position.y + 25 + (float)Math.sin(gunRotation) * gunLength);
 			
 			double angle = Math.atan((double)(difference.y / difference.x));
+			gunRotation = angle;
 			
-			Bullet bullet = new Bullet(gameRef, map, true, weapon.getDamage(), angle, position);
+			Bullet bullet = new Bullet(gameRef, map, true, weapon.getDamage(), angle, bulletOrigin);
 			WeaponSound.AK47.getWeaponSound().play();
 		}
 		
