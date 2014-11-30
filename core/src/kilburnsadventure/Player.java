@@ -30,7 +30,7 @@ public class Player extends MapObject{
 	    playerImage = new Texture("graphics/ballon.png");
 	    
 	    currentHP = maxHP;
-	    weapon = Weapon.MissileLauncher;
+	    weapon = Weapon.AK47;
 	    
 	    balloonCollision = new Rectangle(position.x + 3, position.y + 46, 64, 57);
 	    basketCollision = new Rectangle(position.x + 16, position.y, 37, 46);
