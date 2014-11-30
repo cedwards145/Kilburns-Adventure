@@ -29,11 +29,5 @@ public class AmmoDrop extends ItemDrop{
 			map.removeFromObjectList(this);
 		}
 	}
-	
-	@Override
-	public void draw(SpriteBatch spriteBatch)
-	{
-		
-	}	
 
 }

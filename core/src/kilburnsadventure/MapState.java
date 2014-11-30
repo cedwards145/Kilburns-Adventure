@@ -27,7 +27,7 @@ public class MapState extends GameState
 	private String displayScore = "", displayHealth = "";
 	private BitmapFont font;
 	private Weapon weapon;
-	private Texture initialiseMap, weaponImage, pbTexture,
+	private Texture initialiseMap, pbTexture,
 									pbUpdate, smallBaloon;
 	private boolean pushedGameOver = false;
 	private ItemDrop drops;
@@ -47,7 +47,6 @@ public class MapState extends GameState
 		pbTexture = map.getProgressBar();
 		pbUpdate = map.getProgressBarUpdate();
 		weapon = player.getWeapon();
-		weaponImage = weapon.getImage();
 		initialiseMap = map.getMap();
 		smallBaloon = map.getSmallBaloon();
 		// Add player to the list of objects.
@@ -98,7 +97,19 @@ public class MapState extends GameState
 	public void spawnHealth()
 	{
 		Vector2 position = new Vector2(xPlayerPosX + 400, 480);
-		drops = new HPItem(game, this, position, array[mapLvl][1]);
+		drops = new HPItem(game, this, position, array[mapLvl][0]);
+		addToObjectList(drops);
+	}
+	public void spawnShield()
+	{
+		Vector2 position = new Vector2(xPlayerPosX + 400, 480);
+		drops = new ShieldDrop(game, this, position);
+		addToObjectList(drops);
+	}
+	public void spawnAmmo()
+	{
+		Vector2 position = new Vector2(xPlayerPosX + 400, 480);
+		drops = new AmmoDrop(game, this, position, Weapon.Shotgun, array[mapLvl][5]);
 		addToObjectList(drops);
 	}
 	
@@ -135,6 +146,20 @@ public class MapState extends GameState
 		if (chanceOfDrop == 1)
 		{
 			spawnHealth();
+		}
+		
+		// Spawn shield drop
+		chanceOfDrop = MathUtils.random(1, array[mapLvl][2]);
+		if (chanceOfDrop == 1)
+		{
+			spawnShield();
+		}
+		
+		// Spawn shield drop
+		chanceOfDrop = MathUtils.random(1, array[mapLvl][3]);
+		if (chanceOfDrop == 1)
+		{
+			spawnAmmo();
 		}
 		
 		if(player.getCurrentHP() <=  0 && !pushedGameOver)
@@ -179,12 +204,10 @@ public class MapState extends GameState
 		super.draw(spriteBatch);
 		spriteBatch.draw(initialiseMap, 0, 0);
 		
-		// Weapon
-		spriteBatch.draw(weaponImage, gameRef.getCameraPosition().x - 300,
-										 gameRef.getCameraPosition().y + 210);
 		// Progress Bar
 		spriteBatch.draw(pbTexture, gameRef.getCameraPosition().x - 200, 
 				 gameRef.getCameraPosition().y - 220);
+		
 		
 		// Calculate the stretch for the green update on the progress
 		// bar.
@@ -221,6 +244,15 @@ public class MapState extends GameState
 		
 		// Draw Joystick
 		ControlPanel.drawJoystick(spriteBatch, player.movingUp(), player.movingDown());
+		
+
+		drawWeapons(spriteBatch);
+	}
+	
+	
+	private void drawWeapons(SpriteBatch spriteBatch)
+	{
+		//spriteBatch.draw()
 	}
 }
 

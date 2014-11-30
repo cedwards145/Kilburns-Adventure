@@ -33,8 +33,8 @@ public class Map extends GameObject
 		{
 				array[i][0] = (int) (30 * Math.pow(1.36, i)); // SizeOfHealth
 				array[i][1] = (int) (2000 * Math.pow(1.36, i)); // HealthChanceDrop
-				array[i][2] = (int) (1 * Math.pow(1.36, i)); // ShieldChanceDrop
-				array[i][3] = (int) (1 * Math.pow(1.36, i)); // AmmoChanceDrop
+				array[i][2] = (int) (1500 * Math.pow(1.36, i)); // ShieldChanceDrop
+				array[i][3] = (int) (600 * Math.pow(1.36, i)); // AmmoChanceDrop
 				array[i][4] = (int) (300 * Math.pow(0.9, i)); // EnemyFrequency
 				array[i][5] = (int) (3 * Math.pow(1.36, i)); // Ammo size
 				array[i][6] = (int) (3 * Math.pow(1.6, i)); // Enemy size
